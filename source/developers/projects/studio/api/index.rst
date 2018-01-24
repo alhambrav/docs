@@ -281,3 +281,20 @@ Workflow
    workflow/go-delete
    workflow/go-live
    workflow/reject
+
+---
+AWS
+---
+.. toctree::
+   :maxdepth: 1
+
+   aws/elastictranscoder/post-transcode
+   aws/s3/post-upload
+
+---
+Box
+---
+.. toctree::
+   :maxdepth: 1
+
+   box/post-upload
