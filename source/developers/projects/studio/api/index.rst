@@ -96,6 +96,7 @@ Repo Management
    repo/rebuild-database
    repo/remove-remote
    repo/sync-from-repo
+   repo/list-remote
 
 
 --------
