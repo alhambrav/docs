@@ -21,11 +21,21 @@ What's Supported?
       - Commercial Support
       - Latest
 
+    * - `4.5 <https://craftercms.com/download>`__
+      - January 23, 2026
+      - :green:`Active`
+      - :green:`Active`
+      - 4.5.1 (June 18, 2026)
+    * - 4.4
+      - June 13, 2025
+      - :green:`Active`
+      - :maroon:`Ended on January 23, 2026`
+      - 4.4.8E |enterpriseOnly| (January 12, 2026)
     * - 4.3
       - February 21, 2025
-      - :green:`Active`
-      - :green:`Active`
-      - 4.3.0 (February 21, 2025)
+      - :maroon:`Ended on June 13, 2025`
+      - :maroon:`Ended on December 31, 2025`
+      - 4.3.2 (February 21, 2025)
     * - 4.2
       - November 13, 2024
       - :maroon:`Ended February 21, 2025`
