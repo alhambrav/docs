@@ -28,8 +28,8 @@ What's Supported?
       - 4.5.1 (June 18, 2026)
     * - 4.4
       - June 13, 2025
-      - :green:`Active`
       - :maroon:`Ended on January 23, 2026`
+      - :green:`Active`
       - 4.4.8E |enterpriseOnly| (January 12, 2026)
     * - 4.3
       - February 21, 2025
@@ -38,12 +38,12 @@ What's Supported?
       - 4.3.2 (February 21, 2025)
     * - 4.2
       - November 13, 2024
-      - :maroon:`Ended February 21, 2025`
-      - :orange:`August 31, 2025`
+      - :maroon:`Ended on February 21, 2025`
+      - :maroon:`Ended on August 31, 2025`
       - 4.2.2 (January 15, 2025)
     * - 4.1
       - June 17, 2023
-      - :maroon:`Ended November 13, 2024`
+      - :maroon:`Ended on November 13, 2024`
       - :maroon:`Ended on December 31, 2024`
       - 4.1.9 (November 27, 2024)
     * - 4.0
