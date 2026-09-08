@@ -184,14 +184,16 @@ The directive on line 7 below is used for setting up the websocket proxy for Stu
 |
 
 A delivery Engine can host multiple projects. Typical production setup is one virtual host per project,
-each adding ``crafterSite`` (or ``X-Crafter-Site``) so Engine knows which tenant to render.
+each setting the ``X-Crafter-Site`` header so Engine knows which tenant to render. The vhost overwrites
+that header with the project configured for the vhost and removes any ``crafterSite`` query parameter
+sent by the client, so a visitor can't make one virtual host serve another project.
 See :ref:`setup-project-for-delivery`.
 
 .. _configure-reverse-proxy-for-delivery:
 
 .. code-block:: apache
    :caption: *Delivery Configuration*
-   :emphasize-lines: 31,37,38
+   :emphasize-lines: 14,19-22,40,46,47
    :linenos:
 
    <VirtualHost *:80>
@@ -204,9 +206,18 @@ See :ref:`setup-project-for-delivery`.
         DocumentRoot /{path_to_craftercms_home}/data/repos/sites/{myproject}
 
         RewriteEngine On
-        # Assign CrafterCMS project for this vhost
 
-        RewriteRule (.*) $1?crafterSite={myproject} [QSA,PT]
+        # Assign the CrafterCMS project for this vhost. "set" replaces any
+        # X-Crafter-Site header sent by the client. Requires mod_headers.
+        RequestHeader set X-Crafter-Site "{myproject}"
+
+        # Remove any crafterSite query parameter sent by the client, keeping all
+        # other query parameters. The N flag re-runs the rules, so repeated
+        # crafterSite parameters are all removed.
+        RewriteCond %{QUERY_STRING} ^(.*&)?crafterSite=[^&]*&(.*)$ [NC]
+        RewriteRule ^/?(.*)$ /$1?%1%2 [N]
+        RewriteCond %{QUERY_STRING} ^(.*?)&?crafterSite=[^&]*$ [NC]
+        RewriteRule ^/?(.*)$ /$1?%1 [N]
 
         # Block outside access to management services
         RewriteRule ^/api/1/cache / [NC,PT,L]
@@ -309,7 +320,14 @@ Below are the directives used for setting up a reverse proxy with NGINX:
         }
 
         location / {
-            rewrite ^/(.*)$ /$1?crafterSite={myproject} break;
+            # Remove any crafterSite query parameter sent by the client, keeping all
+            # other query parameters
+            if ($args ~* "^(?<qs_head>.*?)(?:^|&)crafterSite=[^&]*(?<qs_tail>(?:&.*)?)$") {
+                set $args "$qs_head$qs_tail";
+            }
+            if ($args ~ "^&(?<qs_rest>.*)$") {
+                set $args $qs_rest;
+            }
 
             # Block outside access to management services
             rewrite ^/api/1/cache / break;
@@ -333,6 +351,10 @@ Below are the directives used for setting up a reverse proxy with NGINX:
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
+
+            # Assign the CrafterCMS project for this vhost, replacing any
+            # X-Crafter-Site header sent by the client
+            proxy_set_header X-Crafter-Site "{myproject}";
         }
 
         # Configure the log files
@@ -346,7 +368,10 @@ Depending on your setup, the following CrafterCMS properties may need to be setu
 - ``studio-config-forwarded-headers`` property under :ref:`studio-forwarded-headers` in the ``studio-config-override.yaml`` file
 
 .. note::
-    When configuring the delivery environment, it is possible to specify an HTTP header called ``X-Crafter-Site`` set to the value of ``{myproject}`` instead of using a URL rewrite as shown in the examples above.
+    The delivery examples above set the ``X-Crafter-Site`` header to ``{myproject}`` instead of injecting a
+    ``crafterSite`` query parameter. The header takes precedence over the query parameter and the cookie, so
+    content retrieval API requests through these virtual hosts no longer need to pass ``crafterSite``.
+    The Apache example requires ``mod_headers`` and ``mod_rewrite`` to be enabled.
 
 .. _environment-variables:
 
