@@ -183,6 +183,10 @@ The directive on line 7 below is used for setting up the websocket proxy for Stu
 
 |
 
+A delivery Engine can host multiple projects. Typical production setup is one virtual host per project,
+each adding ``crafterSite`` (or ``X-Crafter-Site``) so Engine knows which tenant to render.
+See :ref:`setup-project-for-delivery`.
+
 .. _configure-reverse-proxy-for-delivery:
 
 .. code-block:: apache
