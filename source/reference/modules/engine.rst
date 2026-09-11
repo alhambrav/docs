@@ -18,6 +18,8 @@ Crafter Engine
 Engine provides content delivery services to power any type of Web or mobile application. It consumes content published
 from Studio via the Deployer and provides developers with APIs to consume the content (content, search, GraphQL, etc.).
 
+Crafter Engine is multi-tenant: a single delivery Engine can serve many projects (sites). Each project is initialized as its own Deployer target so Engine can resolve which project to render (for example via X-Crafter-Site, the crafterSite query parameter, or a reverse-proxy virtual host).
+
 .. include:: /includes/content-retrieval-apis.rst
 
 .. include:: /includes/scripts-templates-security.rst
