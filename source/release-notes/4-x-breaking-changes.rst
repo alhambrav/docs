@@ -42,6 +42,10 @@ Breaking Changes in CrafterCMS 4.6.0
 
 * Users without ``Publish`` permission on a related item will no longer see that item in the publish soft-dependency list.
 
+* Engine REST Scripts No Longer Produce XML.
+
+  Clients that request XML via the ``Accept: application/xml`` header or a ``.xml`` URL will receive ``HTTP 406 Not Acceptable``. Update those clients to request JSON (``Accept: application/json`` or a ``.json`` URL) and parse JSON instead of XML.
+
 .. _breaking-changes-in-craftercms-4-5-1:
 
 ------------------------------------
