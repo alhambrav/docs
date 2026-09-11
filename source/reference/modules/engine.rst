@@ -837,7 +837,7 @@ Allowed Descriptor Paths
     :label: Since
     :version: 4.6.0
 
-Crafter Engine limits which site URLs ``SiteItemService`` can return as content items. ThisSet this with a
+Crafter Engine limits which site URLs ``SiteItemService`` can return as content items. This is set with a
 comma-separated list of regular expressions in the following property (default: ``/site/.*``):
 
 .. code-block:: properties
