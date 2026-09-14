@@ -21,6 +21,8 @@ Delivery
 --------
 CrafterCMS's delivery tier is designed to be perfectly horizontally scalable. The delivery tier is a shared-nothing architecture, meaning that each node in the delivery tier is independent of the other nodes. This allows for the delivery tier to be scaled horizontally by simply adding more nodes to the delivery tier. The delivery tier can also be scaled vertically by adding more resources.
 
+Each delivery Engine is also multi-tenant: one Engine can deliver many projects.
+
 Therefore, there is never a need to build traditional clusters for the delivery tier.
 
 Global distribution of delivery nodes is then a matter of deploying Crafter Engine nodes in different regions, and using a DNS service to route traffic to the region closest to the user. Crafter Deployer is capable of deploying content to multiple regions, and enabling region specific search engines to be used as well to completely decentralize the delivery tier.
