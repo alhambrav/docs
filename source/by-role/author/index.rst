@@ -1651,8 +1651,8 @@ After you rename a page:
 
 * Submit the page for publish (or publish it) so the new URL is available in staging/live.
 * Update any links, menus, or other items that still point at the old path. The Rename dialog lists
-  dependents to help you find them.
-* Until the rename is published, visitors using the old URL in delivery may not reach the page.
+  dependents to help you find them. Remember to publish updated dependent items after path changes.
+* Until the rename is published, delivery continues to serve the page at its old URL; the new URL is not available.
 
 Renaming a component follows the same steps: open the component form, click **Edit** next to
 the ``file-name`` control, which for the Editorial bp is **Component ID**, enter the new name, then save the form.
@@ -1927,7 +1927,7 @@ When you rename (or cut/move) a folder:
 
 * Items in the folder **must** be published individually or in bulk to complete the move in the
   staged or live project.
-* Change references so they point to the new paths.
+* Change references so they point to the new paths. Remember to publish these changes as well.
 
 Some paths cannot be renamed. Project administrators can mark additional folders as protected.
 See :ref:`project-config-protected-folders`.
