@@ -1611,7 +1611,7 @@ Renaming a page changes its file name, which is also the last part of the page U
 the content form, not from the Sidebar menu.
 
 To rename a page, open it for edit (see :ref:`editing-page`). In the content form, find the ``file-name`` control.
-Let's use a site created using the Editorial blueprint for the sample screenshots. The ``file-name`` control's ``Title``
+Let's use a site created using the Editorial blueprint for this example. The ``file-name`` control's ``Title``
 for pages is **Page URL**.
 
 When you are editing an existing page, the field is locked and an **Edit** button appears next to the field name.
