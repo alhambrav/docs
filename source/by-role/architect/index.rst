@@ -57,7 +57,6 @@ CrafterCMS comprises a number of services that work together to provide a comple
     * - :ref:`Studio<crafter-studio>`
       - Studio provides all the content management services to enable authoring, management, and publishing of all content.
     * - :ref:`Engine<crafter-engine>`
-      - Engine provides content delivery services to power any type of Web or mobile application.
       - Engine provides content delivery services to power any type of Web or mobile application. It is multi-tenant and can deliver many projects from a single instance.
     * - :ref:`Deployer<crafter-deployer>`
       - The content deployment system which moves content from Studio to Engine and Search.
