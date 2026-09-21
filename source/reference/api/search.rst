@@ -162,6 +162,9 @@ method allows you to use builder objects to develop complex logic for building t
 --------
 Examples
 --------
+For querying the search index from a Groovy **page or component controller** and listing hits in **FreeMarker**,
+see :ref:`content-queries-groovy-freemarker`.
+
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Implementing a Faceted Search
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

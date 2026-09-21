@@ -127,6 +127,9 @@ Groovy classes to follow this convention.
 
 |
 
+For a walkthrough of querying content in these scripts and listing the results in FreeMarker (search and
+Site Item Service), see :ref:`content-queries-groovy-freemarker`.
+
 For more information on the FreeMarker (Templating) APIs, please see :ref:`templating-api`.
 
 For more information on the Groovy APIs, please see :ref:`groovy-java-api`
