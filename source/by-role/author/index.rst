@@ -1620,6 +1620,7 @@ When you are editing an existing page, the field is locked and an **Edit** butto
    :width: 70 %
    :align: center
    :alt: Content Author - Rename Page File Name Edit Button
+
 |
 
 Click **Edit**. A **Rename Content** dialog opens. Enter the new name, then click **Rename**.
@@ -1628,6 +1629,7 @@ Click **Edit**. A **Rename Content** dialog opens. Enter the new name, then clic
    :width: 60 %
    :align: center
    :alt: Content Author - Rename Content Dialog
+
 |
 
 The dialog lists items that depend on the current path. If dependents are listed, check
@@ -1638,6 +1640,7 @@ closes, click **Save & Close** on the content form to apply the new name.
    :width: 80 %
    :align: center
    :alt: Content Author - Rename Content Dialog
+
 |
 
 Page and component names must consist of **lowercase letters without accents, numbers, dash (-) and
@@ -1897,6 +1900,7 @@ Navigate to the file, click the three dots next to it, then select **Rename**.
     :alt: Static Assets - Rename Menu
     :width: 40 %
     :align: center
+
 |
 
 The **Rename Asset** dialog opens. Enter the **New name**, including the file extension.
@@ -1905,6 +1909,7 @@ The **Rename Asset** dialog opens. Enter the **New name**, including the file ex
     :alt: Static Assets - Rename Dialog
     :width: 60 %
     :align: center
+
 |
 
 Asset names may consist of **letters, numbers, dot (.), dash (-) and underscore (_)**. The name must
