@@ -445,7 +445,7 @@ Docker Images
 CrafterCMS provides Docker images on `Docker Hub <https://hub.docker.com/u/craftercms>`__ for the latest release versions
 and snapshots of versions in development. The CrafterCMS Docker images may be pulled by using:
 
-- the tag for a release version, e.g. ``craftercms/authoring_tomcat:4.5.2`` for the community version or ``craftercms/authoring_tomcat:4.5.2E`` for the enterprise version
+- the tag for a release version, e.g. craftercms/authoring_tomcat:|release| for the community version or craftercms/authoring_tomcat:|release|\ E for the enterprise version
 - the latest release, e.g. ``craftercms/authoring_tomcat:latest``
 - the tag for a snapshot of a version in development, e.g. ``craftercms/authoring_tomcat:4.5.2-SNAPSHOT``
 
@@ -472,6 +472,9 @@ See the full list of images and tags on each image page on `Docker Hub <https://
 For Docker Compose, see https://github.com/craftercms/docker-compose.
 
 As mentioned, CrafterCMS is open source and you can always build Docker images from source code `here <https://github.com/craftersoftware/craftercms>`__ using the `docker-images <https://github.com/craftercms/docker-images>`__ project.
+
+.. |authoringTomcat| parsed-literal::
+                      docker pull craftercms/authoring_tomcat:|release|
 
 |hr|
 
