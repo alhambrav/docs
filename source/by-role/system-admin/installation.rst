@@ -451,8 +451,6 @@ and snapshots of versions in development. The CrafterCMS Docker images may be pu
 
 Here are the latest CrafterCMS release, community edition, available from `Docker Hub <https://hub.docker.com/u/craftercms>`__:
 
-Here are some community images for the latest release version:
-
 .. list-table::
     :header-rows: 1
     :widths: 28 42 30
