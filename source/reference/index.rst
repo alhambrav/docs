@@ -116,7 +116,7 @@ Complimentary Projects
     *   - Docker Compose
         - `Docker Compose on GitHub <https://github.com/craftercms/docker-compose>`_
     *   - Docker Images
-        - `Docker Images on GitHub <https://github.com/craftercms/docker-images>`_
+        - `Docker Hub <https://hub.docker.com/u/craftercms>`__ | `Source on GitHub <https://github.com/craftercms/docker-images>`__
     *   - Kubernetes
         - `Kubernetes Deployments on GitHub <https://github.com/craftercms/kubernetes-deployments>`_
     *   - DevContentOps Toolkit (Crafter CLI)
