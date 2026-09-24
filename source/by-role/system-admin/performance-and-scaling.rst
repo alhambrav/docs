@@ -274,7 +274,7 @@ Not all storage devices are created equal. The fast the read/write speeds and th
         {CRAFTER_HOME}/data/db (high-concurrency, important)
         {CRAFTER_HOME}/data/indexes
         {CRAFTER_HOME}/data/logs
-        {CRAFTER_HOME}/data/mongodb (Profile / Social, if in use)
+        {CRAFTER_HOME}/data/mongodb (|enterpriseOnly|)
 
 MongoDB storage applies only when using Crafter Profile or Crafter Social |enterpriseOnly|.
 

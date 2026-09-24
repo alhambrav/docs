@@ -15,7 +15,7 @@
 || ``authoring.tomcat.debug.port``    || 8000    || Authoring Tomcat debug port      |
 +-------------------------------------+----------+-----------------------------------+
 || ``authoring.mongo.port``           || 27020   || Authoring MongoDB port           |
-||                                    ||         || (Profile / Social, if in use)    |
+||                                    ||         || |enterpriseOnly|                 |
 +-------------------------------------+----------+-----------------------------------+
 || ``authoring.search.port``          || 9201    || Authoring Search port            |
 +-------------------------------------+----------+-----------------------------------+
