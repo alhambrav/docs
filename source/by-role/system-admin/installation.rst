@@ -34,8 +34,8 @@ Requirements
 - Docker (if running in Docker or macOS)
 
 Please note that CrafterCMS does not require any external databases for the core system to run and deliver fully dynamic
-experiences. MongoDB is used by Crafter Profile and Crafter Social which are optional components that provide external
-(non-author) user management and social features.
+experiences. MongoDB is used only by Crafter Profile |enterpriseOnly| and Crafter Social |enterpriseOnly|, optional enterprise
+modules that provide external (non-author) user management and social features. You do not need MongoDB unless you run those modules.
 
 For more information on sizing your machines, see :ref:`authoring server requirements <authoring-server-requirements>`
 and :ref:`delivery server requirements <delivery-server-requirements>`
@@ -126,9 +126,9 @@ How to set the JAVA_HOME environment variable
 
 |
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Browsers (Crafter Studio & Crafter Social/Profile Admin Consoles)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Browsers (Crafter Studio & Crafter Social/Profile |enterpriseOnly| Admin Consoles)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 The following browsers are supported:
 
     - Chrome and Chromium-based Browsers

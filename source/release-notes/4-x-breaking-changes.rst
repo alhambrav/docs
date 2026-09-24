@@ -358,8 +358,8 @@ in previous versions:
 Upgrading 3.1.x Sites
 ---------------------
 
-  - MongoDB in CrafterCMS Social and Profile has been updated. To upgrade MongoDB in your installation, see
-    :ref:`upgrading-mongodb`
+  - MongoDB in Crafter Social and Crafter Profile |enterpriseOnly| has been updated. To upgrade MongoDB in your
+    installation, see :ref:`upgrading-mongodb`
 
   - CrafterCMS 4.1.x onward requires Git. |br| See :ref:`Requirements <requirements_supported_platforms>` for more
     information on CrafterCMS requirements.

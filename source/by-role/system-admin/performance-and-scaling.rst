@@ -274,7 +274,9 @@ Not all storage devices are created equal. The fast the read/write speeds and th
         {CRAFTER_HOME}/data/db (high-concurrency, important)
         {CRAFTER_HOME}/data/indexes
         {CRAFTER_HOME}/data/logs
-        {CRAFTER_HOME}/data/mongodb (if in use)
+        {CRAFTER_HOME}/data/mongodb (Profile / Social, if in use)
+
+MongoDB storage applies only when using Crafter Profile or Crafter Social |enterpriseOnly|.
 
 |
 
@@ -294,7 +296,7 @@ One optimization to raise effective IOPS of a system without buying very expensi
         /dev/{dev2} -> /opt/crafter/data/repos
         /dev/{dev3} -> /opt/crafter/data/indexes
         /dev/{dev4} -> /opt/crafter/logs
-        /dev/{dev5} -> /opt/crafter/data/mongodb
+        /dev/{dev5} -> /opt/crafter/data/mongodb  (Profile / Social, if in use)
         /dev/{dev6} -> /var
         /dev/{dev7} -> /home
         /dev/{dev8} -> /usr
