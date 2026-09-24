@@ -48,7 +48,7 @@ and locations of the log files:
 ||     projects log files      ||                                                                |
 +------------------------------+-----------------------------------------------------------------+
 || MongoDB log files           || ``$CRAFTER_LOGS_DIR/mongodb/``                                 |
-|| (Profile / Social only)     ||                                                                |
+|| |enterpriseOnly|            ||                                                                |
 +------------------------------+-----------------------------------------------------------------+
 
 For the Authoring environment:
