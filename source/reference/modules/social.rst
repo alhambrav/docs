@@ -106,6 +106,7 @@ Properties prefix: ``crafter.profile.rest.client.``
 
 .. important::
     Remember to change the pre-configured default value for ``crafter.profile.rest.client.accessToken.id`` to secure your installation.
+    When changing the default value, remember to create a matching token in :ref:`Crafter Profile <crafter-profile-admin-console>`, update the ``crafter.profile.rest.client.accessToken.id`` here in Social to use the ID in Profile, and revoke the old token after updating dependent clients.
 
 
 ^^^^^^^^^^^^^^^^^

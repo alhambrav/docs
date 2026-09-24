@@ -244,7 +244,8 @@ To add a custom appender you can follow these steps:
 
 #. Place the required JAR files in the appropriate location:
 
-   * for Engine, Studio, Search, Profile or Social |enterpriseOnly| use ``$CRAFTER_HOME/bin/apache-tomcat/shared/lib``
+   * for Engine, Studio, Search use ``$CRAFTER_HOME/bin/apache-tomcat/shared/lib``
+   * for Profile or Social |enterpriseOnly| use ``$CRAFTER_HOME/bin/apache-tomcat/shared/lib``
    * for Deployer use ``$CRAFTER_HOME/bin/crafter-deployer/lib``
 #. Update the required logging configuration to add the custom appender, for example if the custom appender name is
    ``AwesomeAppender`` and the class is under the package ``com.custom.logging`` the configuration will be like this:
