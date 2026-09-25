@@ -42,6 +42,10 @@ All configuration for Crafter Social is managed using a properties file:
 
   ``CRAFTER_HOME/bin/apache-tomcat/shared/classes/crafter/social/extension/server-config.properties``
 
+.. important::
+
+    Remember to change pre-configured default values of properties such as passwords, tokens, keys, etc. to secure your installation.
+
 ^^^^^^^^^^^^^^^^^^^^^
 MongoDB Configuration
 ^^^^^^^^^^^^^^^^^^^^^
@@ -99,6 +103,11 @@ Properties prefix: ``crafter.profile.rest.client.``
 |                |                                        || requests made to the Crafter      |
 |                |                                        || Profile API                       |
 +----------------+----------------------------------------+------------------------------------+
+
+.. important::
+    Remember to change the pre-configured default value for ``crafter.profile.rest.client.accessToken.id`` to secure your installation.
+    When changing the default value, remember to create a matching token in :ref:`Crafter Profile <crafter-profile-admin-console>`, update the ``crafter.profile.rest.client.accessToken.id`` here in Social to use the ID in Profile, and revoke the old token after updating dependent clients.
+
 
 ^^^^^^^^^^^^^^^^^
 Web Configuration
@@ -372,6 +381,10 @@ You can change any of the default configuration, some of the more relevant prope
 
   crafter.profile.rest.client.url.base=http://localhost:8080/crafter-profile
   crafter.profile.rest.client.accessToken.id=e8f5170c-877b-416f-b70f-4b09772f8e2d
+
+.. important::
+    Remember to change the pre-configured default value for ``crafter.profile.rest.client.accessToken.id`` to secure your installation.
+
 
 ~~~~~~~~~~
 Properties

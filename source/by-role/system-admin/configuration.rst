@@ -59,10 +59,10 @@ CrafterCMS uses the following default ports and hostnames:
     * - Search
       - 9201 |br| 9202
       - localhost
-    * - Profile
+    * - Profile |enterpriseOnly|
       - 8080 |br| 9080
       - localhost
-    * - Social
+    * - Social |enterpriseOnly|
       - 8080 |br| 9080
       - localhost
 
@@ -98,6 +98,7 @@ The following is an example of the default values for the hostnames and ports us
     export SEARCH_PORT=${SEARCH_PORT:="9201"}
     export DEPLOYER_HOST=${DEPLOYER_HOST:="localhost"}
     export DEPLOYER_PORT=${DEPLOYER_PORT:="9191"}
+    # MongoDB is used only by Crafter Profile / Crafter Social (enterprise)
     export MONGODB_HOST=${MONGODB_HOST:="localhost"}
     export MONGODB_PORT=${MONGODB_PORT:="27020"}
     export MARIADB_HOST=${MARIADB_HOST:="127.0.0.1"}
@@ -127,6 +128,7 @@ The following is an example of the default values for the hostnames and ports us
     export SEARCH_PORT=${SEARCH_PORT:="9202"}
     export DEPLOYER_HOST=${DEPLOYER_HOST:="localhost"}
     export DEPLOYER_PORT=${DEPLOYER_PORT:="9192"}
+    # MongoDB is used only by Crafter Profile / Crafter Social (enterprise)
     export MONGODB_HOST=${MONGODB_HOST:="localhost"}
     export MONGODB_PORT=${MONGODB_PORT:="28020"}
     export TOMCAT_HOST=${TOMCAT_HOST:="localhost"}
@@ -454,10 +456,10 @@ Here are the environment variables used for configuring hosts and ports:
       - Deployer port
       - 9201
     * - MONGODB_HOST
-      - MongoDB host
+      - MongoDB host (Crafter Profile / Crafter Social |enterpriseOnly|)
       - localhost
     * - MONGODB_PORT
-      - MongoDB port
+      - MongoDB port (Crafter Profile / Crafter Social |enterpriseOnly|)
       - 27020
     * - MARIADB_HOST
       - MariaDB host (authoring only)
@@ -512,10 +514,10 @@ Here are the environment variables used for setting URLs for various CrafterCMS 
       - Crafter Engine URL
       - ``http://$TOMCAT_HOST:$TOMCAT_HTTP_PORT/``
     * - PROFILE_URL
-      - Crafter Profile URL
+      - Crafter Profile |enterpriseOnly| URL
       - ``http://$TOMCAT_HOST:$TOMCAT_HTTP_PORT/crafter-profile``
     * - SOCIAL_URL
-      - Crafter Social URL
+      - Crafter Social |enterpriseOnly| URL
       - ``http://$TOMCAT_HOST:$TOMCAT_HTTP_PORT/crafter-social``
 
 See the following for examples on where the above URL environment variables are used:
@@ -653,10 +655,10 @@ Here are the environment variables used for configuring the Deployer:
 
 .. _env-var-mongodb:
 
-~~~~~~~
-MongoDB
-~~~~~~~
-Here are the environment variables used for configuring MongoDB:
+~~~~~~~~~~~~~~~~~~~~~~~~
+MongoDB |enterpriseOnly|
+~~~~~~~~~~~~~~~~~~~~~~~~
+These variables apply only when using Crafter Profile or Crafter Social |enterpriseOnly|. MongoDB is not required for the core CMS.
 
 .. list-table:: MongoDB Environment Variables
     :header-rows: 1
@@ -974,14 +976,14 @@ Crafter Deployer ties Studio and Engine together and is responsible for publishi
 
 |hr|
 
--------
-Profile
--------
-Crafter Profile provides a user identity augmentation capability. It allows the project/site developers to add metadata to existing identity (managed in LDAP for example) and add arbitrary metadata to it, or, it can manage the identity entirely if desired. Learn more about Crafter Profile configuration and administration in :ref:`Profile Configuration and Administration <crafter-profile-admin>`.
+------------------------
+Profile |enterpriseOnly|
+------------------------
+Crafter Profile |enterpriseOnly| provides a user identity augmentation capability. It allows the project/site developers to add metadata to existing identity (managed in LDAP for example) and add arbitrary metadata to it, or, it can manage the identity entirely if desired. Learn more about Crafter Profile configuration and administration in :ref:`Profile Configuration and Administration <crafter-profile-admin>`.
 
 |hr|
 
--------
-Social
--------
-Crafter Social provides a user generated content management system. It allows the project/site developers to handle all actions related to user-generated content (UGC), including the creation, updating and moderation of content. Learn more about Crafter Social configuration and administration in :ref:`Social Configuration and Administration <crafter-social-admin>`.
+-----------------------
+Social |enterpriseOnly|
+-----------------------
+Crafter Social |enterpriseOnly| provides a user generated content management system. It allows the project/site developers to handle all actions related to user-generated content (UGC), including the creation, updating and moderation of content. Learn more about Crafter Social configuration and administration in :ref:`Social Configuration and Administration <crafter-social-admin>`.

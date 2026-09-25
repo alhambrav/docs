@@ -187,11 +187,11 @@ CrafterCMS provides the following Java libraries for managing your projects:
      - :javadoc_base_url:`deployer/index.html`
    * - Crafter Engine
      - :javadoc_base_url:`engine/index.html`
-   * - Crafter Profile
+   * - Crafter Profile |enterpriseOnly|
      - :javadoc_base_url:`profile/index.html`
    * - Crafter Search
      - :javadoc_base_url:`search/index.html`
-   * - Crafter Social
+   * - Crafter Social |enterpriseOnly|
      - :javadoc_base_url:`social/index.html`
    * - Crafter Studio
      - :javadoc_base_url:`studio/index.html`

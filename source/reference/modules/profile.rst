@@ -40,6 +40,10 @@ All configuration for Crafter Profile is managed using a properties file:
 
   ``CRAFTER_HOME/bin/apache-tomcat/shared/classes/crafter/profile/extension/server-config.properties``
 
+.. important::
+
+    Remember to change pre-configured default values for properties such as passwords, tokens, keys, etc. to secure your installation.
+
 ^^^^^^^^^^^^^^^^^^^^^
 MongoDB Configuration
 ^^^^^^^^^^^^^^^^^^^^^
@@ -303,8 +307,11 @@ You can change any of the default configuration, some of the more relevant prope
 
 .. code-block:: properties
 
-  crafter.profile.rest.client.url.base=http://localhost:8080/crafter-profile
-  crafter.profile.rest.client.accessToken.id=e8f5170c-877b-416f-b70f-4b09772f8e2d
+    crafter.profile.rest.client.url.base=http://localhost:8080/crafter-profile
+    crafter.profile.rest.client.accessToken.id=e8f5170c-877b-416f-b70f-4b09772f8e2d
+
+.. important::
+    Remember to change the pre-configured default value for ``crafter.profile.rest.client.accessToken.id`` to secure your installation.
 
 ~~~~~~~~~~
 Properties
