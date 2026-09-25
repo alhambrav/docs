@@ -255,8 +255,8 @@ Below is a short set of links to other documentation for technology that Crafter
 || OpenSearch    || Search and content query    || https://opensearch.org/docs/latest/          |
 ||               ||                             ||                                              |
 +----------------+------------------------------+-----------------------------------------------+
-|| MongoDB       || Crafter Profile and Social  || https://docs.mongodb.com                     |
-||               || data store                  ||                                              |
+|| MongoDB       || Profile/Social data store   || https://docs.mongodb.com                     |
+||               || |enterpriseOnly|            ||                                              |
 +----------------+------------------------------+-----------------------------------------------+
 || GIT           || Repository Implementation   || https://git-scm.com/docs                     |
 +----------------+------------------------------+-----------------------------------------------+

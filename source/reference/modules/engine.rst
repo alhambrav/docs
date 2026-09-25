@@ -1,5 +1,5 @@
 :is-up-to-date: True
-:last-updated: 4.5.0
+:last-updated: 4.6.0
 
 .. meta::
    :description: Crafter Engine is the CrafterCMS content delivery module — serving REST, GraphQL, and FreeMarker-rendered content for web and mobile apps.
@@ -731,6 +731,8 @@ In this section we will highlight some of the more commonly used properties in t
       - Allows you to set the content root folder
     * - :ref:`engine-turn-off-show-error`
       - Allows you to turn off showing errors in line with content
+    * - :ref:`engine-site-allowed-descriptor-paths`
+      - Allows you to configure allowed descriptor patterns used by ``SiteItemService``
     * - :ref:`engine-http-response-headers`
       - Allows you to add headers to responses, such as caching policies
     * - :ref:`engine-url-rewrite-configuration`
@@ -757,6 +759,8 @@ In this section we will highlight some of the more commonly used properties in t
       - Allows you to configure the search client connection timeout, socket timeout and number of threads
     * - :ref:`engine-search-default-filters`
       - Allows you to enable/disable default filters for search queries
+    * - :ref:`engine-search-restricted-key-patterns`
+      - Allows you to configure JSON keys that are not allowed in Site Search API request bodies
     * - :ref:`engine-search-connection-pool`
       - Allows you to configure the search connection pool max total connections and max connections per route
     * - :ref:`engine-content-length-headers`
@@ -770,9 +774,9 @@ In this section we will highlight some of the more commonly used properties in t
     * - :ref:`engine-project-spring-configuration`
       - Allows you to configure Spring application context
     * - :ref:`engine-mongodb-configuration`
-      - Allows you to configure Crafter Engine access to MongoDB
+      - Configure Engine access to MongoDB for Crafter Profile / Crafter Social |enterpriseOnly|
     * - :ref:`engine-crafter-profile-configuration`
-      - Allows you to configure Crafter Engine access to Crafter Profile APIs
+      - Configure Engine access to Crafter Profile APIs |enterpriseOnly|
     * - :ref:`engine-custom-properties`
       - Allows you to add custom properties to the project configuration
     * - :ref:`engine-craftersite-cookie-configuration`
@@ -823,6 +827,38 @@ Templates in CrafterCMS will display the errors in line with content as they enc
    Note that the error will not show up but is printed out in the server's log file.
 
 |
+
+|hr|
+
+.. _engine-site-allowed-descriptor-paths:
+
+""""""""""""""""""""""""
+Allowed Descriptor Paths
+""""""""""""""""""""""""
+.. version_tag::
+    :label: Since
+    :version: 4.6.0
+
+Crafter Engine limits which site URLs ``SiteItemService`` can return as content items. This is set with a
+comma-separated list of regular expressions in the following property (default: ``/site/.*``):
+
+.. code-block:: properties
+    :caption: *CRAFTER_HOME/bin/apache-tomcat/shared/classes/crafter/engine/extension/server-config.properties*
+
+    # List of regular expressions for the paths that are allowed to be used as descriptor paths (the SiteItemService will only return items from these paths)
+    crafter.engine.site.default.descriptors.allowed.paths=/site/.*
+
+``SiteItemService.getSiteItem(...)`` returns an item only when the item URL matches one of the patterns.
+``SiteItemService.getSiteTree(...)`` includes only matching items in the tree.
+
+``SiteItemService.exists(path)`` is not limited by these patterns. It only checks whether the path is present in
+the site content store. Engine configuration lookups use ``exists()`` and ``getRawContent()`` rather than
+``getSiteItem()``, so configuration files outside the allowed descriptor paths can still be detected and read.
+
+If Groovy, Freemarker, or other Engine code calls ``getSiteItem`` or ``getSiteTree`` for paths outside the allowed
+patterns, those calls receive ``null`` or an empty tree. To include extra descriptor locations, add more regexes to
+the property.
+
 
 |hr|
 
@@ -1667,6 +1703,35 @@ To enable/disable the default filters for all queries, set the following:
 
 |hr|
 
+.. _engine-search-restricted-key-patterns:
+
+"""""""""""""""""""""""""""""""
+Search Restricted Key Patterns
+"""""""""""""""""""""""""""""""
+.. version_tag::
+    :label: Since
+    :version: 4.6.0
+
+The Site Search REST API (``POST /api/1/site/search/search.json``, and the legacy
+``POST /api/1/site/elasticsearch/search.json``) rejects request bodies that contain restricted JSON object keys.
+
+Configure the restricted key patterns used by the Site Search REST API, using the ``crafter.engine.search.restricted.key.patterns`` property. The value is a comma-separated list of Java regular expressions with a default value of ``script``:
+
+.. code-block:: properties
+    :caption: *CRAFTER_HOME/bin/apache-tomcat/shared/classes/crafter/engine/extension/server-config.properties*
+    :linenos:
+
+    # Comma-separated list of regex patterns for JSON keys that are not allowed in search requests
+    crafter.engine.search.restricted.key.patterns=script
+
+
+The Site Search API checks the entire JSON payload, including nested objects and arrays, and evaluates object keys.
+If there's a match, it returns a HTTP 400 with a message such as ``Search request must not contain a 'script' key``.
+
+|
+
+|hr|
+
 .. _engine-content-length-headers:
 
 """"""""""""""""""""""
@@ -1786,12 +1851,13 @@ also have access to Engine's global properties (like ``crafter.engine.preview``)
 
 .. _engine-mongodb-configuration:
 
-"""""""""""""""""""""""""""""""
-Configure Engine to use MongoDB
-"""""""""""""""""""""""""""""""
-There are times when you may need access to MongoDB. This section details how you can access MongoDB by configuring Engine.
+""""""""""""""""""""""""""""""""""""""""""""""""
+Configure Engine to use MongoDB |enterpriseOnly|
+""""""""""""""""""""""""""""""""""""""""""""""""
+MongoDB is not part of the core CMS. It is used by Crafter Profile and Crafter Social |enterpriseOnly|.
+Configure Engine access to MongoDB only if those modules are in use.
 
-Here are the steps for configuring Engine to use mongoDB:
+Here are the steps for configuring Engine to use MongoDB:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 Configure the MongoDB URI
@@ -2257,8 +2323,9 @@ Environment Specific Configurations Example
 Environments are useful for managing values such as paths or database connections without the need to
 change any code directly in the servers.
 
-In this example, we show how to manage a database connection that will change depending on the server
-where the project is deployed. We will have three environments ``dev``, ``auth`` and ``delivery``
+In this example, we show how to manage a MongoDB connection (used by Crafter Profile / Crafter Social
+|enterpriseOnly|) that will change depending on the server where the project is deployed. We will have three
+environments ``dev``, ``auth`` and ``delivery``
 
 #. First create the environments by following the example above for creating the environments.
    We'll then have the following folders called ``dev``, ``auth`` and ``delivery`` under ``CRAFTER_HOME/data/repos/sites/SITENAME/sandbox/config/engine/env``
@@ -3285,7 +3352,7 @@ Crafter Engine is able to integrate with multiple authentication providers:
 
    To configure SAML 2.0, follow the instructions: :ref:`engine-saml2-configuration`
 
-#. **Using Crafter Profile**
+#. **Using Crafter Profile** |enterpriseOnly|
 
    To configure Crafter Profile, follow the instructions: :ref:`engine-crafter-profile-configuration`
 
@@ -3444,9 +3511,9 @@ authentication provider used, but you can always obtain an instance of |CustomUs
 
 |
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Migrating from Crafter Profile
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Migrating from Crafter Profile |enterpriseOnly|
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Prior to version ``3.1.5`` Crafter Profile was the only security provider available, all projects created in previous
 versions will continue to work without any changes, however if you need to migrate to a different provider like SAML2
 you will need to replace all uses of the ``profile`` and ``authentication`` variables, both have been replaced with
@@ -3470,11 +3537,11 @@ In templates and scripts you can replace all uses of ``profile`` with ``authToke
 
 .. _engine-crafter-profile-configuration:
 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Engine Crafter Profile Configuration
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+Engine Crafter Profile Configuration |enterpriseOnly|
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 .. note:: This guide includes Crafter Profile specific configuration only, for a general guide see
-          :ref:`engine-project-security-guide`
+          :ref:`engine-project-security-guide`. Crafter Profile is an optional enterprise module.
 
 Crafter Engine needs access tokens to use Crafter Profile's API. Each project must have it's own access token. Follow the
 next steps to create one:
@@ -3752,9 +3819,9 @@ next steps to create one:
 
           return "/templates/web/fb-login-done.ftl"
 
-""""""""""""""""""""""""""""""""""
-Accessing Crafter Profile REST API
-""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+Accessing Crafter Profile REST API |enterpriseOnly|
+"""""""""""""""""""""""""""""""""""""""""""""""""""
 The following property allows you to configure the access token required to call Profile REST APIs:
 
 * ``profile.api.accessToken``: The access token to use for the Profile REST calls.

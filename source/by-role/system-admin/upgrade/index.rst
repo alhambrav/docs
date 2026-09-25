@@ -2,8 +2,8 @@
 :last-updated: 4.5.0
 
 .. meta::
-   :description: Complete guide to upgrading CrafterCMS on servers, Docker, Kubernetes, and clusters, including search migration to OpenSearch and MongoDB upgrades.
-   :keywords: CrafterCMS upgrade, upgrade guide, server upgrade, Docker upgrade, Kubernetes upgrade, OpenSearch migration, MongoDB upgrade, cluster upgrade
+   :description: Complete guide to upgrading CrafterCMS on servers, Docker, Kubernetes, and clusters, including search migration to OpenSearch.
+   :keywords: CrafterCMS upgrade, upgrade guide, server upgrade, Docker upgrade, Kubernetes upgrade, OpenSearch migration, cluster upgrade
 
 .. _upgrading-craftercms:
 
@@ -137,13 +137,14 @@ Starting version 4.1.0, CrafterCMS now uses OpenSearch instead of Elasticsearch.
 
 .. _upgrading-mongodb:
 
------------------
-Upgrading MongoDB
------------------
+----------------------------------
+Upgrading MongoDB |enterpriseOnly|
+----------------------------------
 .. note::
-    The following section only applies to Crafter Profile and Social installs.
+    MongoDB is used only by Crafter Profile and Crafter Social |enterpriseOnly|. The following section applies only if those
+    enterprise modules are installed.
 
-Crafter Profile and Social version 4.1.0 and later uses MongoDB v6 in the install.
+Crafter Profile and Crafter Social |enterpriseOnly| version 4.1.0 and later use MongoDB v6 in the install.
 When upgrading your 3.1.x install of Crafter Profile and Social to 4.1.0 and later, MongoDB will need to be manually upgraded.
 
 This section describes how to upgrade MongoDB in your Crafter Profile and Social version 3.1.x installed on a server.
