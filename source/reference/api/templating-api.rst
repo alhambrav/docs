@@ -1,5 +1,5 @@
 :is-up-to-date: True
-:last-update: 4.1.0
+:last-update: 4.6.0
 
 .. meta::
    :description: CrafterCMS FreeMarker templating API reference — available variables, macros, and rendering helpers for building page and component views.
