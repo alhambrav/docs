@@ -15,6 +15,7 @@ version release's release notes page :ref:`below <other-release-notes>`
 
 .. note:: CrafterCMS requires Java 21
 
+.. include:: /release-notes/4-6-1.rst
 .. include:: /release-notes/4-6-0.rst
 .. include:: /release-notes/4-5-2.rst
 .. include:: /release-notes/4-5-1.rst
