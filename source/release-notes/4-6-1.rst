@@ -4,7 +4,7 @@
 CrafterCMS Version 4.6.1 and 4.6.1E
 -----------------------------------
 
-Released *September TBD, 2026*
+Released *September 29, 2026*
 
 .. important::
 
