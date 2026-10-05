@@ -46,6 +46,30 @@ Breaking Changes in CrafterCMS 4.6.0
 
   Clients that request XML via the ``Accept: application/xml`` header or a ``.xml`` URL will receive ``HTTP 406 Not Acceptable``. Update those clients to request JSON (``Accept: application/json`` or a ``.json`` URL) and parse JSON instead of XML.
 
+|hr|
+
+.. _breaking-changes-in-craftercms-4-5-2:
+
+------------------------------------
+Breaking Changes in CrafterCMS 4.5.2
+------------------------------------
+* Engine no longer bundles the following Groovy modules: ``groovy-json``, ``groovy-xml``, ``groovy-yaml``, ``groovy-templates``, ``groovy-datetime``, ``groovy-nio``, ``groovy-servlet``, ``groovy-jsr223``, ``groovy-macro``, ``groovy-ant``, ``groovy-cli-picocli``, ``groovy-console``, ``groovy-docgenerator``, ``groovy-groovydoc``, ``groovy-groovysh``, ``groovy-jmx``, ``groovy-swing``, ``groovy-test``, and ``groovy-test-junit5``.
+
+  Scripts that use classes from those modules above, including ``groovy.json.JsonSlurper``, ``groovy.json.JsonOutput``, and ``groovy.xml.XmlUtil``, will fail at runtime.
+
+  Update your Groovy scripts to ``@Grab`` the required modules like below:
+
+  .. code-block:: groovy
+
+      @Grab(group='org.apache.groovy', module='groovy-json', version='4.0.33', initClass=false)
+      @Grab(group='org.apache.groovy', module='groovy-xml', version='4.0.33', initClass=false)
+
+* Engine and Studio endpoints with request bodies now accept JSON only.
+
+  Clients sending XML must convert the request body to JSON and set the ``Content-Type`` header to ``application/json``. Requests using an unsupported content type will receive ``HTTP 415 Unsupported Media Type``.
+
+|hr|
+
 .. _breaking-changes-in-craftercms-4-5-1:
 
 ------------------------------------
@@ -70,6 +94,7 @@ Use the following monitoring APIs for retrieving version or system information:
       - :base_url:`/api/1/monitoring/version <_static/api/deployer.html#tag/monitoring/operation/version>`
       - :base_url:`/api/1/monitoring/sysinfo <_static/api/deployer.html#tag/monitoring/operation/sysinfo>`
 
+|hr|
 
 .. _breaking-changes-in-craftercms-4-5-0:
 
@@ -110,6 +135,8 @@ Breaking Changes in CrafterCMS 4.5.0
 
   See :ref:`Studio <studio-grapes-download>`, :ref:`Engine <engine-grapes-download>` and :ref:`Deployer <deployer-grapes-download>`
   grapes configuration for more information on enabling automatic grapes download.
+
+|hr|
 
 .. _breaking-changes-in-craftercms-4-4-3:
 
