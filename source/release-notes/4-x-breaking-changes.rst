@@ -66,7 +66,7 @@ Breaking Changes in CrafterCMS 4.5.2
 
   Note that Crafter Engine disables Grape downloads by default and only makes previously downloaded grapes available. See :ref:`engine-grapes-download` for more information on downloading Groovy dependencies for scripts.
 
-* Engine and Studio with request-body endpoints that use the XML converter are not accepted.
+* Engine and Studio with request-body endpoints that use the XML converter are are now restricted to application/json.
 
   Clients with request-body endpoints that use the XML converter must convert the request body to JSON and set the ``Content-Type`` header to ``application/json``. Requests using an unsupported content type will receive ``HTTP 415 Unsupported Media Type``.
 
