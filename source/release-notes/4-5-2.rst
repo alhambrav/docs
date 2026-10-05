@@ -30,7 +30,8 @@ Bug Fixes
 ^^^^^^^^^
 * `Fixed issue with states when performing Publish Everything and Publish <https://github.com/craftersoftware/craftercms/issues/8792>`__
 
-* Engine and Studio request-body endpoints that use the XML converter are now restricted to application/json
+* Engine and Studio request-body endpoints that use the XML converter are now restricted to application/json.
+  See the note in :ref:`breaking-changes-in-craftercms-4-5-2` for more information.
 
 ^^^^^^^^^^^^^^^^^^
 Dependency Updates
