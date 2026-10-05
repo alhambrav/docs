@@ -64,9 +64,11 @@ Breaking Changes in CrafterCMS 4.5.2
       @Grab(group='org.apache.groovy', module='groovy-json', version='4.0.33', initClass=false)
       @Grab(group='org.apache.groovy', module='groovy-xml', version='4.0.33', initClass=false)
 
-* Engine and Studio endpoints with request bodies now accept JSON only.
+  Note that Crafter Engine disables Grape downloads by default and only makes previously downloaded grapes available. See :ref:`engine-grapes-download` for more information on downloading Groovy dependencies for scripts.
 
-  Clients sending XML must convert the request body to JSON and set the ``Content-Type`` header to ``application/json``. Requests using an unsupported content type will receive ``HTTP 415 Unsupported Media Type``.
+* Engine and Studio with request-body endpoints that use the XML converter are not accepted.
+
+  Clients with request-body endpoints that use the XML converter must convert the request body to JSON and set the ``Content-Type`` header to ``application/json``. Requests using an unsupported content type will receive ``HTTP 415 Unsupported Media Type``.
 
 |hr|
 
