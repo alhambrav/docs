@@ -3418,7 +3418,7 @@ Crafter Engine is able to integrate with multiple authentication providers:
 
 #. **Using Crafter Profile** |enterpriseOnly|
 
-   To configure Crafter Profile, follow the instructions: :ref:`engine-crafter-profile-configuration`. Crafter Profile is not included in Community Edition.
+   To configure Crafter Profile, follow the instructions: :ref:`engine-crafter-profile-configuration`. 
 
 """"""""""""""""""
 Add Authentication
