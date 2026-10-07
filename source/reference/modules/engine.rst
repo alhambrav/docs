@@ -2666,9 +2666,9 @@ CrafterCMS can authenticate Engine users from a Spring Security properties file.
 
 Remember to restart CrafterCMS after you change the file. Engine reads it when the Spring context starts.
 
-""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""
 Set Up Users in a Dev Environment
-""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""
 #. Edit ``CRAFTER_HOME/bin/apache-tomcat/shared/classes/crafter/engine/extension/users.properties``.
 
    Use the same path in the authoring environment and in the delivery environment. Each environment has its own file.
