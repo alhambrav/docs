@@ -2674,6 +2674,7 @@ enable the ``crafter_engine_propertiesAuth`` profile in ``crafter-setenv.sh`` (o
 
     # Uncomment to authenticate Engine users from users.properties instead of Crafter Profile
     # export SPRING_PROFILES_ACTIVE=crafter_engine_propertiesAuth
+    # For multiple active spring profiles, create comma separated list
 
 """""""""""""""""""""""""""""""""
 Set Up Users in a Dev Environment
