@@ -2666,6 +2666,15 @@ CrafterCMS can authenticate Engine users from a Spring Security properties file.
 
 Remember to restart CrafterCMS after you change the file. Engine reads it when the Spring context starts.
 
+For users using the CrafterCMS Enterprise Edition, to use the properties-based users config, remember to
+enable the ``crafter_engine_propertiesAuth`` profile in ``crafter-setenv.sh`` (or env variable):
+
+.. code-block:: bash
+    :caption: `CRAFTER_HOME/bin/crafter-setenv.sh`
+
+    # Uncomment to authenticate Engine users from users.properties instead of Crafter Profile
+    # export SPRING_PROFILES_ACTIVE=crafter_engine_propertiesAuth
+
 """""""""""""""""""""""""""""""""
 Set Up Users in a Dev Environment
 """""""""""""""""""""""""""""""""
@@ -2678,16 +2687,17 @@ Set Up Users in a Dev Environment
    .. code-block:: properties
        :caption: CRAFTER_HOME/bin/apache-tomcat/shared/classes/crafter/engine/extension/users.properties
 
+       # Spring Security user format:
        # username=password[,enabled|disabled],ROLE_A,ROLE_B
        developer={noop}devpass,ROLE_USER
        admin={noop}admin,ROLE_ADMIN
        disabled-user={noop}password,disabled,ROLE_USER
 
-   Note that ``{noop}`` stores the password in plain text. Use it only for local development. For other environments, prefix the password with an encoder id such as ``{bcrypt}``:
+   Note that ``{noop}`` stores the password in plain text. Use it only for local development. For other environments, prefix the (hashed) password with its PasswordEncoder id such as ``bcrypt`` ({bcrypt} matches hashes starting with $2a$, $2b$, or $2y$)::
 
    .. code-block:: properties
 
-       admin={bcrypt}$2a$10$...,ROLE_ADMIN
+       admin={bcrypt}$2a$10$E...hashedpassword...,ROLE_ADMIN
 
    A line that includes ``disabled`` creates a user that cannot log in. Omit ``enabled`` and ``disabled`` to create an enabled user.
 
@@ -3418,7 +3428,7 @@ Crafter Engine is able to integrate with multiple authentication providers:
 
 #. **Using Crafter Profile** |enterpriseOnly|
 
-   To configure Crafter Profile, follow the instructions: :ref:`engine-crafter-profile-configuration`. 
+   To configure Crafter Profile, follow the instructions: :ref:`engine-crafter-profile-configuration`.
 
 """"""""""""""""""
 Add Authentication
