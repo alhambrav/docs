@@ -202,7 +202,7 @@ This section allows the user to configure the public Studio URL.
     # If STUDIO_URL is internal-only, override this property directly with the public URL instead.
     studio.authoring.serverUrl: https://authoring.example.com/studio
 
-The ``studio.authoring.serverUrl`` property is set to ``${env:STUDIO_URL}`` or http://localhost:8080/studio by default. While safe for local development, if not configured to an externally reachable URL, external users in production environments will receive unreachable localhost links.
+The ``studio.authoring.serverUrl`` property is set to ``${env:STUDIO_URL}`` or http://localhost:8080/studio by default. While safe for local development, if not configured to an externally reachable URL, external users in production environments will receive links to an unreachable Studio URL.
 
 |hr|
 
