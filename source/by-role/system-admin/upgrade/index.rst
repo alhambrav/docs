@@ -31,6 +31,7 @@ The following CrafterCMS versions are able to upgrade to the latest release:
       - All
       - All
       - All
+      - All
       - ``3.1.9``
     * -
       -
