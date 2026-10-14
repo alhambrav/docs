@@ -1,5 +1,5 @@
 :is-up-to-date: True
-:last-updated: 4.6.0
+:last-updated: 4.7.0
 
 .. meta::
    :description: Complete guide to upgrading CrafterCMS on servers, Docker, Kubernetes, and clusters, including search migration to OpenSearch.
@@ -15,7 +15,8 @@ The following CrafterCMS versions are able to upgrade to the latest release:
 
 .. list-table::
 
-    * - **4.6**
+    * - **4.7**
+      - **4.6**
       - **4.5**
       - **4.4**
       - **4.3**
@@ -38,6 +39,7 @@ The following CrafterCMS versions are able to upgrade to the latest release:
       -
       -
       -
+      -
       - ``3.1.12``
     * -
       -
@@ -46,8 +48,10 @@ The following CrafterCMS versions are able to upgrade to the latest release:
       -
       -
       -
+      -
       - ``3.1.13``
     * -
+      -
       -
       -
       -
@@ -92,6 +96,26 @@ Here are the instructions for upgrading CrafterCMS based on how it was installed
    upgrading-server.rst
    upgrading-container.rst
    upgrading-cluster.rst
+
+|hr|
+
+.. _upgrade-notes-for-craftercms-4.7.0:
+
+----------------------------------
+Upgrade Notes for CrafterCMS 4.7.0
+----------------------------------
+Existing installations upgrading to 4.7.0 that rely on password recovery emails **must ensure** ``studio.authoring.serverUrl`` **is configured** to the public, externally reachable Studio base URL (including ``/studio``).
+
+.. code-block:: yaml
+    :caption: *bin/apache-tomcat/shared/classes/crafter/studio/extension/studio-config-override.yaml*
+
+    ############################################################
+    ##                    Authoring Server                    ##
+    ############################################################
+    # Public Studio base URL (including /studio) for generated links such as password recovery emails.
+    studio.authoring.serverUrl: https://authoring.example.com/studio
+
+Note that if ``studio.authoring.serverUrl`` is left unconfigured, it defaults to ``${env:STUDIO_URL}`` or http://localhost:8080/studio. While safe for local development, external users in production environments will receive unreachable localhost links.
 
 |hr|
 

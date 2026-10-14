@@ -1,5 +1,5 @@
 :is-up-to-date: True
-:last-updated: 4.6.0
+:last-updated: 4.7.0
 :orphan:
 
 .. _breaking-changes-4-x:
@@ -20,6 +20,26 @@ before upgrading. Please review the following and apply changes as required:
 - CrafterCMS has upgraded the AWS client library to version 2. |br| This may contain breaking changes that impact custom Java and
   Groovy code. See https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/migration.html for more information
   on the changes in the library that may affect your project/s.
+
+|hr|
+
+.. _breaking-changes-in-craftercms-4-7-0:
+
+------------------------------------
+Breaking Changes in CrafterCMS 4.7.0
+------------------------------------
+* Crafter Social and Crafter Profile are not included in CrafterCMS Community Edition. They remain available in CrafterCMS Enterprise.
+
+* New basic ``users.properties`` file to support Engine authentication. Define Engine users in this new file.
+  Remember that roles in the file must match the roles used by the site's security rules or ``authorizedRoles``. Users in the file are Engine users only.
+
+  See :ref:`engine-users-properties` for more information.
+
+* Preview tokens now use a dedicated encryption configuration and token format. Preview tokens created before 4.7.0
+  are no longer valid and must be regenerated.
+
+  Before upgrading, configure matching ``CRAFTER_PREVIEW_TOKEN_KEY`` and ``CRAFTER_PREVIEW_TOKEN_SALT`` values for
+  Studio and Engine, replacing the defaults. See :ref:`env-var-preview-token-encryption` for more information.
 
 |hr|
 
