@@ -4194,8 +4194,8 @@ Preview Cookies
     :label: Since
     :version: 4.3.2
 
-When a request is sent with a ``previewToken`` query string argument (QSA), the preview Engine stores both the
-``previewToken`` and the associated ``crafterSite`` (site ID) QSA values in cookies. This allows subsequent requests
+When a request is sent with a ``crafterPreview`` query string argument (QSA), the preview Engine stores both the
+``crafterPreview`` and the associated ``crafterSite`` (site ID) QSA values in cookies. This allows subsequent requests
 to automatically reuse the token and site context without needing to resend them in the URL.
 
 To configure the behavior of the cookies, edit the following in the ``server-config.properties`` file:
