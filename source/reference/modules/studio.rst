@@ -1,5 +1,5 @@
 :is-up-to-date: True
-:last-updated: 4.5.0
+:last-updated: 4.7.0
 
 .. highlight:: xml
 
@@ -5102,14 +5102,6 @@ Cipher Configuration
     :caption: *CRAFTER_HOME/bin/apache-tomcat/shared/classes/crafter/studio/extension/studio-config-override.yaml*
     :linenos:
 
-    ##################################################
-    ##                   Security                   ##
-    ##################################################
-    # Time in minutes after which active users will be required to login again
-    # studio.security.sessionTimeout: 480
-    # Time in minutes after which inactive users will be required to login again
-    # studio.security.inactivityTimeout: 30
-    #
     # Salt for encrypting
     studio.security.cipher.salt: ${env:CRAFTER_SYSTEM_ENCRYPTION_SALT}
     # Key for encrypting
@@ -5119,6 +5111,12 @@ Cipher Configuration
     studio.security.encryption.key: ${env:CRAFTER_ENCRYPTION_KEY}
     # The salt used for encryption of configuration properties
     studio.security.encryption.salt: ${env:CRAFTER_ENCRYPTION_SALT}
+    # The key used for encryption of preview tokens
+    studio.security.preview.token.key: ${env:CRAFTER_PREVIEW_TOKEN_KEY}
+    # The salt used for encryption of preview tokens
+    studio.security.preview.token.salt: ${env:CRAFTER_PREVIEW_TOKEN_SALT}
+    # The prefix used to identify preview tokens
+    studio.security.preview.token.prefix: "CPT-V1#"
 
     # The path of the folder used for the SSH configuration
     studio.security.ssh.config: ${env:CRAFTER_SSH_CONFIG}
@@ -5236,12 +5234,12 @@ re-issued along with the JWT auth token (if ``crafterSite`` is already set).
     studio.security.token.previewCookie.httpOnly: true
     Password requirements validation allows the admin to setup rules that ensures users create passwords based on an organization’s password security policy.
 
-The Preview cookie  ``crafterPreview`` is encrypted using the encryption option for configuration files (which are
-shared between Studio and Engine) and admins will need to update the default configurations for the encryption key and
-salt in :ref:`Studio <studio-cipher-configuration>` and in :ref:`Engine <engine-configuration-properties-encryption>`.
+The Preview cookie ``crafterPreview`` is encrypted using the dedicated preview token encryption settings shared by
+Studio and Engine. Admins must replace the default encryption key and salt and use the same values for both
+applications. See :ref:`env-var-preview-token-encryption` for more information.
 
-Use the API :base_url:`switchPreviewSite <_static/api/studio.html#tag/users/operation/getCurrentUserSites>` to refresh
-the ``crafterPreview`` cookie. This API must be called whenever the ``crafterSite`` cookie value is updated
+Use the API :base_url:`switchPreviewSite <_static/api/studio.html#tag/security/operation/switchPreviewSite>` to refresh
+the ``crafterPreview`` cookie. This API must be called whenever the ``crafterSite`` cookie value is updated.
 
 |hr|
 
@@ -6208,6 +6206,44 @@ Here's an example of using the token with Curl, where ``{Generated-Preview-Token
 The dialog above that shows the preview token generated also shows other examples on how to use the preview token.
 
 Sometimes you may need to disable security for accessing delivery APIs in preview mode from within the authoring environment, when working on a feature. To disable the preview API security, you'll need to set the Engine ``crafter.security.preview.enabled`` property to ``false``. See :ref:`engine-security-preview-mode` for more information.
+
+''''''''''''''''''''''''''
+Generate Preview Token API
+''''''''''''''''''''''''''
+.. version_tag::
+    :label: Since
+    :version: 4.7.0
+
+Studio's Token Management UI generates preview tokens using the
+:base_url:`generatePreviewToken <_static/api/studio.html#tag/security/operation/generatePreviewToken>` API.
+
+You can also call the API directly with a non-empty list of project IDs and a future expiration date:
+
+.. code-block:: bash
+
+    curl --request POST "http://localhost:8080/studio/api/2/security/preview/generate_token" \
+         --header "Content-Type: application/json" \
+         --cookie "{authenticated Studio session cookies}" \
+         --data '{"siteIds":["ed"],"expiresAt":"2099-12-31T23:59:59Z"}'
+
+The API returns the generated value in the ``token`` property. The user must have the ``manage_access_token``
+permission globally or for every requested project.
+
+Generating preview tokens requires the dedicated preview token encryption settings shared
+by Studio and Engine. Admins must replace the default encryption key and salt and use the same key, salt,
+and prefix values for both applications. See :ref:`env-var-preview-token-encryption` for more information.
+
+Here are the preview token encryption settings for Crafter Studio:
+
+.. code-block:: yaml
+    :caption: *CRAFTER_HOME/bin/apache-tomcat/shared/classes/crafter/studio/extension/studio-config-override.yaml*
+
+    # The key used for encryption of preview tokens
+    studio.security.preview.token.key: ${env:CRAFTER_PREVIEW_TOKEN_KEY}
+    # The salt used for encryption of preview tokens
+    studio.security.preview.token.salt: ${env:CRAFTER_PREVIEW_TOKEN_SALT}
+    # The prefix used to identify preview tokens
+    studio.security.preview.token.prefix: "CPT-V1#"
 
 |
 

@@ -81,6 +81,7 @@ The system level (global) permissions are defined in the file ``global-permissio
         - :base_url:`Create access token <_static/api/studio.html#tag/security/operation/createAccessToken>`
         - :base_url:`Update access token <_static/api/studio.html#tag/security/operation/updateAccessToken>`
         - :base_url:`Delete access token <_static/api/studio.html#tag/security/operation/deleteAccessToken>`
+        - :base_url:`Generate preview token <_static/api/studio.html#tag/security/operation/generatePreviewToken>`
     * - read_users
       - User is permitted to read users. Used in the :ref:`Users Management Console <users-management>` |br|
         Required when using the following APIs:

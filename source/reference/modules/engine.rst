@@ -1,5 +1,5 @@
 :is-up-to-date: True
-:last-updated: 4.6.0
+:last-updated: 4.7.0
 
 .. meta::
    :description: Crafter Engine is the CrafterCMS content delivery module — serving REST, GraphQL, and FreeMarker-rendered content for web and mobile apps.
@@ -4109,9 +4109,10 @@ Preview Mode
 
 In preview mode, CrafterCMS provides a security filter that can be enabled to intercept all requests and validates the following:
 
-- ``crafterPreview`` cookie exists
-- ``crafterPreview`` cookie decrypted value contains a site name and an expiration timestamp
-- Site name matches the one from ``SiteContextResolver``
+- A preview token is provided in the ``crafterPreview`` cookie or query string parameter, or the
+  ``X-Crafter-Preview`` header
+- The decrypted token contains the user, creation timestamp, permitted projects, and expiration timestamp
+- The project from ``SiteContextResolver`` is included in the token's permitted projects
 - Expiration timestamp is in the future
 
 To enable the Engine Preview Mode security filters, set ``crafter.security.preview.enabled`` to true.
@@ -4140,9 +4141,9 @@ To exclude a URL from being intercepted and validated by the security filter, ad
       /api/1/site/context/**,\
       /api/1/site/cache/**
 
-Enabling the security filter in Preview Mode requires the configuration encryption configurations (which are shared
-between Studio and Engine) and admins will need to update the default configurations for the encryption key and salt in
-:ref:`Studio <studio-cipher-configuration>` and in :ref:`Engine <engine-configuration-properties-encryption>`.
+Enabling the security filter in Preview Mode requires the dedicated preview token encryption settings shared
+by Studio and Engine. Admins must replace the default encryption key and salt and use the same key, salt,
+and prefix values for both applications. See :ref:`env-var-preview-token-encryption` for more information.
 
 .. note::
     To check if Engine is running in preview mode, use the ``modePreview`` variable available in
@@ -4164,6 +4165,25 @@ between Studio and Engine) and admins will need to update the default configurat
         if (modePreview) {
             // Preview-only logic
         }
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Preview Token Encryption Settings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. version_tag::
+	:label: Since
+	:version: 4.7.0
+
+Here are the preview token encryption settings for Crafter Engine:
+
+.. code-block:: properties
+    :caption: *CRAFTER_HOME/bin/apache-tomcat/shared/classes/crafter/engine/extension/server-config.properties*
+
+    # The key used for encryption of preview tokens
+    crafter.security.preview.token.key=${CRAFTER_PREVIEW_TOKEN_KEY}
+    # The salt used for encryption of preview tokens
+    crafter.security.preview.token.salt=${CRAFTER_PREVIEW_TOKEN_SALT}
+    # Optional prefix added to preview-token ciphertext
+    crafter.security.preview.token.prefix=CPT-V1#
 
 .. _engine-preview-cookie:
 
