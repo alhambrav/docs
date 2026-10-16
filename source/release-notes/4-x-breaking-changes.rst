@@ -33,6 +33,9 @@ Breaking Changes in CrafterCMS 4.7.0
 * New basic ``users.properties`` file to support Engine authentication. Define Engine users in this new file.
   Remember that roles in the file must match the roles used by the site's security rules or ``authorizedRoles``. Users in the file are Engine users only.
 
+  Community Edition projects that used Crafter Profile for Engine authentication must migrate the required users and
+  roles to ``users.properties``.
+
   See :ref:`engine-users-properties` for more information.
 
 * Preview tokens now use a dedicated encryption configuration and token format. Preview tokens created before 4.7.0
@@ -40,6 +43,11 @@ Breaking Changes in CrafterCMS 4.7.0
 
   Before upgrading, configure matching ``CRAFTER_PREVIEW_TOKEN_KEY`` and ``CRAFTER_PREVIEW_TOKEN_SALT`` values for
   Studio and Engine, replacing the defaults. See :ref:`env-var-preview-token-encryption` for more information.
+
+* Deployer target management APIs no longer accept the management token in the ``token`` query parameter. Update
+  clients that create, read, deploy, duplicate, unlock, reindex, or delete targets to send the configured
+  ``deployer.main.management.authorizationToken`` value in the ``X-Crafter-Management-Token`` request header.
+  Deployer monitoring APIs continue to use the ``token`` query parameter.
 
 |hr|
 

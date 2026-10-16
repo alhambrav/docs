@@ -3,7 +3,6 @@
 -----------------------------------
 CrafterCMS Version 4.7.0 and 4.7.0E
 -----------------------------------
-
 Released *October TBD, 2026*
 
 .. important::
@@ -29,6 +28,12 @@ New Features
 ^^^^^^^^^^^^
 Enhancements
 ^^^^^^^^^^^^
+* Deployer target management APIs now accept the management token in the
+  ``X-Crafter-Management-Token`` header, preventing the token from being exposed in URLs and request logs.
+  See :ref:`Breaking changes <breaking-changes-in-craftercms-4-7-0>` for the required client changes.
+
+* Engine now reports detailed URL rewrite configuration errors and continues serving the site without URL rewriting
+  when the configuration is invalid.
 
 ^^^^^^^^^^^^^^^^^^
 Dependency Updates
@@ -36,8 +41,10 @@ Dependency Updates
 * Noteworthy dependency updates:
 
   - OpenSearch to version 3.9
-  - AWS SDK to version 2.55.11
+  - AWS SDK to version 2.55.14
   - Apache Commons Lang to version 3.21.0
+  - Apache Commons Codec to version 1.23.0
+  - Joda Time to version 2.15.0
 
 For a complete list of community tickets, please visit: `GitHub 4.7.0 <https://github.com/orgs/craftersoftware/projects/68/views/1?filterQuery=>`_
 
