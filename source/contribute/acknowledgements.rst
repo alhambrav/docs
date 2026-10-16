@@ -1,5 +1,5 @@
 :is-up-to-date: True
-:last-updated: 4.6.1
+:last-updated: 4.7.0
 
 .. meta::
     :description lang=en:
@@ -240,10 +240,6 @@ CrafterCMS acknowledges the following Open Source Software used in this product:
 |br|
 `org.mongodb:bson <https://mvnrepository.com/artifact/org.mongodb/bson>`_
 |br|
-`org.mongodb:mongodb-driver-legacy <https://mvnrepository.com/artifact/org.mongodb/mongodb-driver-legacy>`_
-|br|
-`org.mongodb:mongodb-driver-sync <https://mvnrepository.com/artifact/org.mongodb/mongodb-driver-sync>`_
-|br|
 `org.mybatis:mybatis-spring <https://mvnrepository.com/artifact/org.mybatis/mybatis-spring>`_
 |br|
 `org.mybatis:mybatis <https://mvnrepository.com/artifact/org.mybatis/mybatis>`_
@@ -288,6 +284,8 @@ CrafterCMS acknowledges the following Open Source Software used in this product:
 |br|
 `org.springframework:spring-websocket <https://mvnrepository.com/artifact/org.springframework/spring-websocket>`_
 |br|
+`org.springframework.boot:spring-boot-jackson2 <https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-jackson2>`_
+|br|
 `org.springframework.boot:spring-boot-starter-log4j2 <https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-log4j2>`_
 |br|
 `org.springframework.boot:spring-boot-starter-restclient <https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-restclient>`_
@@ -313,10 +311,6 @@ CrafterCMS acknowledges the following Open Source Software used in this product:
 `org.springframework.security:spring-security-messaging <https://mvnrepository.com/artifact/org.springframework.security/spring-security-messaging>`_
 |br|
 `org.springframework.security:spring-security-web <https://mvnrepository.com/artifact/org.springframework.security/spring-security-web>`_
-|br|
-`org.springframework.social:spring-social-facebook <https://mvnrepository.com/artifact/org.springframework.social/spring-social-facebook>`_
-|br|
-`org.springframework.social:spring-social-web <https://mvnrepository.com/artifact/org.springframework.social/spring-social-web>`_
 |br|
 `org.testng:testng <https://mvnrepository.com/artifact/org.testng/testng>`_
 |br|
