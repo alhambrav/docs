@@ -26,13 +26,13 @@ What's Supported?
       - Latest
 
     * - `4.7 <https://craftercms.com/download>`__
-      - October TBD, 2026
+      - October 21, 2026
       - :green:`Active`
       - :green:`Active`
-      - 4.7.0 (October TBD, 2026)
+      - 4.7.0 (October 21, 2026)
     * - 4.6
       - September 21, 2026
-      - :maroon:`Ended on October TBD, 2026`
+      - :maroon:`Ended on October 21, 2026`
       - :green:`Active`
       - 4.6.1 (September 29, 2026)
     * - 4.5
