@@ -118,6 +118,41 @@ Existing installations upgrading to 4.7.0 that rely on password recovery emails 
 
 Note that if ``studio.authoring.serverUrl`` is left unconfigured, it defaults to ``${env:STUDIO_URL}`` or http://localhost:8080/studio. While safe for local development, external users in production environments will receive unreachable localhost links.
 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Crafter Profile Access Tokens |enterpriseOnly|
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Existing authoring installations that use Crafter Profile upgrading to 4.7.0 **must configure** all three Profile
+access token IDs. Fixed default tokens are no longer included in the server configuration.
+
+Authoring startup stops when Profile is deployed, ``$CRAFTER_DATA_DIR/profile/access-tokens.env`` is missing, and either:
+
+* only some of ``PROFILE_ADMIN_ACCESS_TOKEN_ID``, ``PROFILE_ENGINE_ACCESS_TOKEN_ID``, and
+  ``PROFILE_SOCIAL_ACCESS_TOKEN_ID`` are set, or
+* none of them is set and local MongoDB data already exists, or ``MONGODB_HOST`` is not ``localhost`` or ``127.0.0.1``.
+
+When all three variables are set, CrafterCMS uses them and does not create ``access-tokens.env``. A new local
+installation with no MongoDB data and no token variables generates the file instead.
+
+.. code-block:: bash
+    :caption: *$CRAFTER_DATA_DIR/profile/access-tokens.env*
+
+    PROFILE_ADMIN_ACCESS_TOKEN_ID=<admin token id>
+    PROFILE_ENGINE_ACCESS_TOKEN_ID=<engine token id>
+    PROFILE_SOCIAL_ACCESS_TOKEN_ID=<social token id>
+
+Create that file with mode ``600``, or export the same three variables before startup. Use the token IDs already stored
+in the Profile MongoDB ``accesstoken`` collection.
+
+Profile does not seed these historical fixed default token IDs into an empty access-token collection. New local Authoring
+installations generate new IDs instead. Profile logs a warning at startup while any historical ID remains in MongoDB;
+create replacement tokens, update every client, restart, and then delete the historical tokens.
+
+Note that Delivery does not generate a token file. Copy your Authoring installation's ``access-tokens.env`` to each
+Delivery node that uses Profile, or set the same three variables. A Delivery node that does not use Profile needs no
+token configuration.
+
+See :ref:`env-var-profile-access-tokens` for the variables and the properties that use them.
+
 |hr|
 
 .. _upgrade-notes-for-craftercms-4.5.1:

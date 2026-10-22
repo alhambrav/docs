@@ -1,5 +1,5 @@
 :is-up-to-date: True
-:last-updated: 4.1.4
+:last-updated: 4.7.0
 
 .. index:: Configuration, Ports, Hostnames, Apache HTTPd, Configure Reverse Proxy
 
@@ -772,6 +772,42 @@ You must update these per installation and provide these tokens to the status mo
     * - SOCIAL_MANAGEMENT_TOKEN
       - Authorization token for Social
       - defaultManagementToken
+
+.. _env-var-profile-access-tokens:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Profile Access Tokens |enterpriseOnly|
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Here are the environment variables used for configuring the Crafter Profile |enterpriseOnly| REST API access tokens used
+by Profile, Engine, and Social. Remember to set all three, or leave all three unset. Startup stops when only some of them are set.
+
+.. list-table:: Profile Access Token Environment Variables
+    :header-rows: 1
+
+    * - Variable Name
+      - Description
+      - Default Value
+    * - PROFILE_ADMIN_ACCESS_TOKEN_ID
+      - Access token ID for the Profile Admin client. Profile also seeds this ID as the ``profile-admin`` token.
+      -
+    * - PROFILE_ENGINE_ACCESS_TOKEN_ID
+      - Access token ID Engine uses to call Profile. Profile also seeds this ID as the ``engine`` token.
+      -
+    * - PROFILE_SOCIAL_ACCESS_TOKEN_ID
+      - Access token ID Social uses to call Profile. Profile also seeds this ID as the ``social`` token.
+      -
+    * - PROFILE_ACCESS_TOKENS_FILE
+      - File that stores the three access token IDs
+      - $CRAFTER_DATA_DIR/profile/access-tokens.env
+
+On a new local Authoring installation, CrafterCMS generates the three IDs and writes them to ``PROFILE_ACCESS_TOKENS_FILE``
+with mode ``600``. If all three ID variables are already set, those values are used and the file is not created. A
+value already set in the environment takes precedence over the same value in the file.
+
+Delivery does not generate a token file. Copy Authoring's ``access-tokens.env`` to each Delivery node that uses Profile,
+or set the same three ID variables. An installation that does not deploy Profile skips this setup.
+
+See :ref:`upgrade-notes-for-craftercms-4.7.0` before upgrading an existing installation.
 
 .. _env-var-configuration-files-encryption:
 

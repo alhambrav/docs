@@ -1,5 +1,5 @@
 :is-up-to-date: True
-:last-updated: 4.6.0
+:last-updated: 4.7.0
 
 .. meta::
    :description: Crafter Engine is the CrafterCMS content delivery module — serving REST, GraphQL, and FreeMarker-rendered content for web and mobile apps.
@@ -3543,8 +3543,9 @@ Engine Crafter Profile Configuration |enterpriseOnly|
 .. note:: This guide includes Crafter Profile specific configuration only, for a general guide see
           :ref:`engine-project-security-guide`. Crafter Profile is an optional enterprise module.
 
-Crafter Engine needs access tokens to use Crafter Profile's API. Each project must have it's own access token. Follow the
-next steps to create one:
+Crafter Engine needs access tokens to use Crafter Profile's API. The Engine instance uses
+:ref:`PROFILE_ENGINE_ACCESS_TOKEN_ID <env-var-profile-access-tokens>` for ``crafter.profile.rest.client.accessToken.id``.
+Each project must have its own access token. Follow the next steps to create one:
 
 #. Login to Crafter Profile Admin Console as a ``PROFILE_SUPERADMIN`` (by default the admin user has this role). *See* :ref:`here <crafter-profile-admin-console>` *for more information on the Crafter Profile Admin Console UI.*
 #. Click on **New Access Token** in the navigation. Enter your project's name on **Application**, leave the **Master** checkbox

@@ -35,6 +35,11 @@ Enhancements
 * Engine now reports detailed URL rewrite configuration errors and continues serving the site without URL rewriting
   when the configuration is invalid.
 
+* Crafter Profile |enterpriseOnly| now uses configurable access tokens. New Authoring installations generate
+  installation-specific token IDs and store them in ``$CRAFTER_DATA_DIR/profile/access-tokens.env``. |br|
+  See :ref:`env-var-profile-access-tokens` and :ref:`upgrade-notes-for-craftercms-4.7.0` for the configuration required
+  before an existing installation can start.
+
 ^^^^^^^^^^^^^^^^^^
 Dependency Updates
 ^^^^^^^^^^^^^^^^^^

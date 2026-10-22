@@ -49,6 +49,22 @@ Breaking Changes in CrafterCMS 4.7.0
   ``deployer.main.management.authorizationToken`` value in the ``X-Crafter-Management-Token`` request header.
   Deployer monitoring APIs continue to use the ``token`` query parameter.
 
+* Crafter Profile |enterpriseOnly| now uses configurable access tokens.
+
+  New Authoring installations generate ``PROFILE_ADMIN_ACCESS_TOKEN_ID``, ``PROFILE_ENGINE_ACCESS_TOKEN_ID``, and
+  ``PROFILE_SOCIAL_ACCESS_TOKEN_ID``, then store them in ``$CRAFTER_DATA_DIR/profile/access-tokens.env``. Profile,
+  Engine, and Social read those values. All three environment variables must be set or unset.
+
+  An upgrade with existing local MongoDB data, or an installation using a remote MongoDB host, stops during Authoring
+  startup until all three access token IDs are configured. When MongoDB already contains access tokens, the configured
+  access token IDs must match those tokens. When the access token collection is empty, Profile seeds the configured IDs
+  and rejects the former default IDs. Delivery does not generate its own token file: copy Authoring's ``access-tokens.env`` to each Delivery
+  node, or set the same three variables from the secret store used to seed Profile. Installations that do not deploy
+  Profile skip this setup.
+
+  See :ref:`env-var-profile-access-tokens` for the variables, and :ref:`upgrade-notes-for-craftercms-4.7.0` for the
+  configuration required when an existing installation still uses the 4.6.x default tokens.
+
 |hr|
 
 .. _breaking-changes-in-craftercms-4-6-0:
