@@ -51,9 +51,11 @@ Breaking Changes in CrafterCMS 4.7.0
 
 * Crafter Profile |enterpriseOnly| now uses configurable access tokens.
 
-  New Authoring installations generate ``PROFILE_ADMIN_ACCESS_TOKEN_ID``, ``PROFILE_ENGINE_ACCESS_TOKEN_ID``, and
-  ``PROFILE_SOCIAL_ACCESS_TOKEN_ID``, then store them in ``$CRAFTER_DATA_DIR/profile/access-tokens.env``. Profile,
-  Engine, and Social read those values. All three environment variables must be set or unset.
+  A new local Authoring installation with no MongoDB data generates ``PROFILE_ADMIN_ACCESS_TOKEN_ID``,
+  ``PROFILE_ENGINE_ACCESS_TOKEN_ID``, and ``PROFILE_SOCIAL_ACCESS_TOKEN_ID``, then stores them in
+  ``$CRAFTER_DATA_DIR/profile/access-tokens.env``. Profile, Engine, and Social read those values. All three
+  environment variables must be set or unset. A new installation that uses a remote MongoDB host does not create
+  this file and stops until the three IDs are supplied.
 
   An upgrade with existing local MongoDB data, or an installation using a remote MongoDB host, stops during Authoring
   startup until all three access token IDs are configured. When MongoDB already contains access tokens, the configured

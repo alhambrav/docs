@@ -779,7 +779,12 @@ You must update these per installation and provide these tokens to the status mo
 Profile Access Tokens |enterpriseOnly|
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Here are the environment variables used for configuring the Crafter Profile |enterpriseOnly| REST API access tokens used
-by Profile, Engine, and Social. Remember to set all three, or leave all three unset. Startup stops when only some of them are set.
+by Profile, Engine, and Social. Remember to set all three, or leave all three unset.
+Startup stops when Profile is deployed, ``$CRAFTER_DATA_DIR/profile/access-tokens.env`` is missing, and either:
+
+* only some of ``PROFILE_ADMIN_ACCESS_TOKEN_ID``, ``PROFILE_ENGINE_ACCESS_TOKEN_ID``, and
+  ``PROFILE_SOCIAL_ACCESS_TOKEN_ID`` are set, or
+* none of them is set and local MongoDB data already exists, or ``MONGODB_HOST`` is not ``localhost`` or ``127.0.0.1``.
 
 .. list-table:: Profile Access Token Environment Variables
     :header-rows: 1

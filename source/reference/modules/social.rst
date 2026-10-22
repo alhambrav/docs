@@ -99,7 +99,7 @@ Properties prefix: ``crafter.profile.rest.client.``
 | url.base       | \http://localhost:8080/profile         || URL where Crafter Profile is      |
 |                |                                        || deployed                          |
 +----------------+----------------------------------------+------------------------------------+
-| accessToken.id | PROFILE_SOCIAL_ACCESS_TOKEN_ID         || Access Token included in all      |
+| accessToken.id | ${PROFILE_SOCIAL_ACCESS_TOKEN_ID:}     || Access Token included in all      |
 |                |                                        || requests made to the Crafter      |
 |                |                                        || Profile API                       |
 +----------------+----------------------------------------+------------------------------------+
