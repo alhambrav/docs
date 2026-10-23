@@ -40,14 +40,14 @@ Here are the parameters for which you must change the default values:
   * Remote repository passwords and keys
   * Cluster passwords and keys
 
-     .. code-block:: sh
+    .. code-block:: sh
         :caption: *CRAFTER_HOME/bin/crafter-setenv.sh*
 
         # These variables are used by Studio to encrypt and decrypt values in the database.
         export CRAFTER_SYSTEM_ENCRYPTION_KEY=${CRAFTER_SYSTEM_ENCRYPTION_KEY:="s0meDefaultKey"}
         export CRAFTER_SYSTEM_ENCRYPTION_SALT=${CRAFTER_SYSTEM_ENCRYPTION_SALT:="s0meDefaultSalt"}
 
-     |
+    |
 
 * Replace the default values for preview tokens encryption key and salt
 
@@ -63,7 +63,6 @@ Here are the parameters for which you must change the default values:
       export CRAFTER_PREVIEW_TOKEN_SALT=${CRAFTER_PREVIEW_TOKEN_SALT:="default_preview_token_salt"}
 
   |
-
 
 * Replace default values for the management tokens used by Studio, Engine, Deployer, Search, Profile and Social
 

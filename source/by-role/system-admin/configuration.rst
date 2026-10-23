@@ -849,9 +849,9 @@ Here are the environment variables used to encrypt and decrypt preview tokens sh
       - default_preview_token_salt
 
 You must change the pre-configured default values for these environment variables to secure your installation.
-Studio adds the ``CPT-V1#`` prefix to identify preview tokens. Configure it with
-``studio.security.preview.token.prefix`` in Studio and ``crafter.security.preview.token.prefix`` in Engine; remember
-that the values must match.
+Preview tokens are prefixed with ``CPT-V1#`` by default. If you need a different prefix, set
+``studio.security.preview.token.prefix`` in Studio and ``crafter.security.preview.token.prefix`` in Engine to the
+same value.
 
 See the following for more information on using the preview token encryption environment variables:
 

@@ -5111,12 +5111,13 @@ Cipher Configuration
     studio.security.encryption.key: ${env:CRAFTER_ENCRYPTION_KEY}
     # The salt used for encryption of configuration properties
     studio.security.encryption.salt: ${env:CRAFTER_ENCRYPTION_SALT}
+
     # The key used for encryption of preview tokens
     studio.security.preview.token.key: ${env:CRAFTER_PREVIEW_TOKEN_KEY}
     # The salt used for encryption of preview tokens
     studio.security.preview.token.salt: ${env:CRAFTER_PREVIEW_TOKEN_SALT}
-    # The prefix used to identify preview tokens
-    studio.security.preview.token.prefix: "CPT-V1#"
+    # Optional prefix added to preview-token ciphertext so it can be distinguished from legacy values.
+    # studio.security.preview.token.prefix: "CPT-V1#"
 
     # The path of the folder used for the SSH configuration
     studio.security.ssh.config: ${env:CRAFTER_SSH_CONFIG}
@@ -5125,6 +5126,11 @@ Cipher Configuration
     studio.configuration.environment.active: ${env:CRAFTER_ENVIRONMENT}
 
 |
+
+The ``studio.security.preview.token.prefix`` is optional and only needs to be added if you want to override the default
+prefix (``CPT-V1#``) added to preview-token ciphertext. Remember that if you change it, it must match the Engine
+property ``crafter.security.preview.token.prefix``. See :ref:`engine-preview-token-encryption-settings` for more information.
+
 
 |hr|
 
@@ -6207,6 +6213,8 @@ The dialog above that shows the preview token generated also shows other example
 
 Sometimes you may need to disable security for accessing delivery APIs in preview mode from within the authoring environment, when working on a feature. To disable the preview API security, you'll need to set the Engine ``crafter.security.preview.enabled`` property to ``false``. See :ref:`engine-security-preview-mode` for more information.
 
+.. _generate-preview-token-api:
+
 ''''''''''''''''''''''''''
 Generate Preview Token API
 ''''''''''''''''''''''''''
@@ -6223,29 +6231,18 @@ You can also call the API directly with a non-empty list of project IDs and a fu
 
     curl --request POST "http://localhost:8080/studio/api/2/security/preview/generate_token" \
          --header "Content-Type: application/json" \
-         --cookie "{authenticated Studio session cookies}" \
+         --header "Authorization: Bearer {access token}" \
          --data '{"siteIds":["ed"],"expiresAt":"2099-12-31T23:59:59Z"}'
 
 The API returns the generated value in the ``token`` property. The user must have the ``manage_access_token``
-permission globally or for every requested project.
+permission globally or for every requested project. See :ref:`api-token` for instructions on how to create an access token.
 
 Generating preview tokens requires the dedicated preview token encryption settings shared
 by Studio and Engine. Admins must replace the default encryption key and salt and use the same key, salt,
 and prefix values for both applications. See :ref:`env-var-preview-token-encryption` for more information.
 
-Here are the preview token encryption settings for Crafter Studio:
+See :ref:`studio-cipher-configuration` for the preview token encryption settings for Crafter Studio.
 
-.. code-block:: yaml
-    :caption: *CRAFTER_HOME/bin/apache-tomcat/shared/classes/crafter/studio/extension/studio-config-override.yaml*
-
-    # The key used for encryption of preview tokens
-    studio.security.preview.token.key: ${env:CRAFTER_PREVIEW_TOKEN_KEY}
-    # The salt used for encryption of preview tokens
-    studio.security.preview.token.salt: ${env:CRAFTER_PREVIEW_TOKEN_SALT}
-    # The prefix used to identify preview tokens
-    studio.security.preview.token.prefix: "CPT-V1#"
-
-|
 
 .. _settings:
 

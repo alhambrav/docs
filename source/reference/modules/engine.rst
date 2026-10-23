@@ -4166,6 +4166,8 @@ and prefix values for both applications. See :ref:`env-var-preview-token-encrypt
             // Preview-only logic
         }
 
+.. _engine-preview-token-encryption-settings:
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Preview Token Encryption Settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -4177,13 +4179,18 @@ Here are the preview token encryption settings for Crafter Engine:
 
 .. code-block:: properties
     :caption: *CRAFTER_HOME/bin/apache-tomcat/shared/classes/crafter/engine/extension/server-config.properties*
+    :emphasize-lines: 5-6
 
     # The key used for encryption of preview tokens
     crafter.security.preview.token.key=${CRAFTER_PREVIEW_TOKEN_KEY}
     # The salt used for encryption of preview tokens
     crafter.security.preview.token.salt=${CRAFTER_PREVIEW_TOKEN_SALT}
-    # Optional prefix added to preview-token ciphertext
-    crafter.security.preview.token.prefix=CPT-V1#
+    # Optional prefix added to preview-token ciphertext so it can be distinguished from legacy values
+    # crafter.security.preview.token.prefix=CPT-V1#
+
+The ``crafter.security.preview.token.prefix`` is optional and only needs to be added if you want to override the default
+prefix (``CPT-V1#``) added to preview-token ciphertext. Remember that if you change it, it must match the Studio
+property ``studio.security.preview.token.prefix``. See :ref:`generate-preview-token-api` for more information.
 
 .. _engine-preview-cookie:
 
