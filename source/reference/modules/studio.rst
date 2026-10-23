@@ -189,10 +189,16 @@ Authoring URL
     :label: Since
     :version: 4.7.0
 
-This section allows the user to configure the public Studio URL.
+This section allows the user to configure the public (externally reachable) Studio base URL, including ``/studio``.
+Studio uses it to build links in generated emails, such as the password recovery email.
+
+.. important::
+    Starting with 4.7.0, password recovery links are built from ``studio.authoring.serverUrl`` instead of the
+    incoming request. If you upgrade without setting this property (or ``STUDIO_URL``) to your public Studio URL,
+    users will receive password recovery links pointing to ``http://localhost:8080/studio``.
 
 .. code-block:: yaml
-    :caption: *bin/apache-tomcat/shared/classes/crafter/studio/extension/studio-config-override.yaml*
+    :caption: *CRAFTER_HOME/bin/apache-tomcat/shared/classes/crafter/studio/extension/studio-config-override.yaml*
 
     ############################################################
     ##                    Authoring Server                    ##
@@ -202,7 +208,10 @@ This section allows the user to configure the public Studio URL.
     # If STUDIO_URL is internal-only, override this property directly with the public URL instead.
     studio.authoring.serverUrl: https://authoring.example.com/studio
 
-The ``studio.authoring.serverUrl`` property is set to ``${env:STUDIO_URL}`` or http://localhost:8080/studio by default. While safe for local development, if not configured to an externally reachable URL, external users in production environments will receive links to an unreachable Studio URL.
+The ``studio.authoring.serverUrl`` property is set to ``${env:STUDIO_URL}`` by default, which ``crafter-setenv.sh``
+sets to ``http://localhost:8080/studio`` (the same value Studio falls back to when the property is empty).
+While safe for local development, if not configured to an externally reachable URL, external users in production
+environments will receive links they can't open. Studio logs a ``WARN`` message whenever the default value is in use.
 
 |hr|
 
