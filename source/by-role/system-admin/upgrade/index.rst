@@ -105,18 +105,28 @@ Here are the instructions for upgrading CrafterCMS based on how it was installed
 ----------------------------------
 Upgrade Notes for CrafterCMS 4.7.0
 ----------------------------------
-Existing installations upgrading to 4.7.0 that rely on password recovery emails **must ensure** ``studio.authoring.serverUrl`` **is configured** to the public, externally reachable Studio base URL (including ``/studio``).
+- Existing installations upgrading to 4.7.0 that rely on password recovery emails **must ensure** ``studio.authoring.serverUrl`` **is configured** to the public, externally reachable Studio base URL (including ``/studio``).
 
-.. code-block:: yaml
-    :caption: *bin/apache-tomcat/shared/classes/crafter/studio/extension/studio-config-override.yaml*
+  .. code-block:: yaml
+      :caption: *bin/apache-tomcat/shared/classes/crafter/studio/extension/studio-config-override.yaml*
 
-    ############################################################
-    ##                    Authoring Server                    ##
-    ############################################################
-    # Public Studio base URL (including /studio) for generated links such as password recovery emails.
-    studio.authoring.serverUrl: https://authoring.example.com/studio
+      ############################################################
+      ##                    Authoring Server                    ##
+      ############################################################
+      # Public Studio base URL (including /studio) for generated links such as password recovery emails.
+      studio.authoring.serverUrl: https://authoring.example.com/studio
 
-Note that if ``studio.authoring.serverUrl`` is left unconfigured, it defaults to ``${env:STUDIO_URL}`` or http://localhost:8080/studio. While safe for local development, external users in production environments will receive unreachable localhost links.
+  Note that if ``studio.authoring.serverUrl`` is left unconfigured, it defaults to ``${env:STUDIO_URL}`` or http://localhost:8080/studio. While safe for local development, external users in production environments will receive unreachable localhost links.
+
+- Preview tokens created before 4.7.0 were encrypted with the configuration encryption key/salt and only held
+  ``sites`` | ``expiry``. The new Engine filter expects the 4-field payload (``user`` | ``created`` | ``sites`` | ``expiry``),
+  which uses the dedicated key/salt/prefix and has no legacy fallback, so any preview tokens created before the upgrade
+  are no longer valid and must be regenerated. The same thing happens whenever an admin rotates the preview token key,
+  salt or prefix.
+
+  Before upgrading, configure matching ``CRAFTER_PREVIEW_TOKEN_KEY`` and ``CRAFTER_PREVIEW_TOKEN_SALT`` values for
+  Studio and Engine, replacing the defaults. See :ref:`env-var-preview-token-encryption` for more information.
+
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Crafter Profile Access Tokens |enterpriseOnly|

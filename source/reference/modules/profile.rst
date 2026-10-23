@@ -91,15 +91,15 @@ empty. Each property reads the matching :ref:`Profile access token environment v
 
 Properties prefix: ``crafter.profile.accessTokens.``
 
-+------------+----------------------------------+------------------------------------+
-| Property   | Default Value                    | Description                        |
-+============+==================================+====================================+
-| admin.id   | ${PROFILE_ADMIN_ACCESS_TOKEN_ID} || Profile Admin access token ID     |
-+------------+----------------------------------+------------------------------------+
-| engine.id  | ${PROFILE_ENGINE_ACCESS_TOKEN_ID}|| Engine access token ID            |
-+------------+----------------------------------+------------------------------------+
-| social.id  | ${PROFILE_SOCIAL_ACCESS_TOKEN_ID}|| Social access token ID            |
-+------------+----------------------------------+------------------------------------+
++------------+-----------------------------------+------------------------------------+
+| Property   | Default Value                     | Description                        |
++============+===================================+====================================+
+| admin.id   | ${PROFILE_ADMIN_ACCESS_TOKEN_ID:} || Profile Admin access token ID     |
++------------+-----------------------------------+------------------------------------+
+| engine.id  | ${PROFILE_ENGINE_ACCESS_TOKEN_ID:}|| Engine access token ID            |
++------------+-----------------------------------+------------------------------------+
+| social.id  | ${PROFILE_SOCIAL_ACCESS_TOKEN_ID:}|| Social access token ID            |
++------------+-----------------------------------+------------------------------------+
 
 ^^^^^^^^^^^^^^^^^^^
 Email Configuration

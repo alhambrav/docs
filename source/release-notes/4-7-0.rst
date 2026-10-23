@@ -46,9 +46,8 @@ Dependency Updates
 * Noteworthy dependency updates:
 
   - OpenSearch to version 3.9
-  - AWS SDK to version 2.55.14
+  - AWS SDK to version 2.56.0
   - Apache Commons Lang to version 3.21.0
-  - Apache Commons Codec to version 1.23.0
   - Joda Time to version 2.15.0
 
 For a complete list of community tickets, please visit: `GitHub 4.7.0 <https://github.com/orgs/craftersoftware/projects/68/views/1?filterQuery=>`_

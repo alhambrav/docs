@@ -779,7 +779,7 @@ You must update these per installation and provide these tokens to the status mo
 Profile Access Tokens |enterpriseOnly|
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Here are the environment variables used for configuring the Crafter Profile |enterpriseOnly| REST API access tokens used
-by Profile, Engine, and Social. Remember to set all three, or leave all three unset.
+by Profile, Engine, and Social. When ``access-tokens.env`` does not exist, set all three, or leave all three unset.
 Startup stops when Profile is deployed, ``$CRAFTER_DATA_DIR/profile/access-tokens.env`` is missing, and either:
 
 * only some of ``PROFILE_ADMIN_ACCESS_TOKEN_ID``, ``PROFILE_ENGINE_ACCESS_TOKEN_ID``, and
