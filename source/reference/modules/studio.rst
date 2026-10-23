@@ -6232,7 +6232,7 @@ You can also call the API directly with a non-empty list of project IDs and a fu
     curl --request POST "http://localhost:8080/studio/api/2/security/preview/generate_token" \
          --header "Content-Type: application/json" \
          --header "Authorization: Bearer {access token}" \
-         --data '{"siteIds":["ed"],"expiresAt":"2099-12-31T23:59:59Z"}'
+         --data '{"siteIds":["ed"],"expiresAt":"some-date"}'
 
 The API returns the generated value in the ``token`` property. The user must have the ``manage_access_token``
 permission globally or for every requested project. See :ref:`api-token` for instructions on how to create an access token.
