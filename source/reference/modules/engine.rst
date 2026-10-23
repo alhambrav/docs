@@ -2696,7 +2696,7 @@ Set Up Users in a Dev Environment
 
    Note that ``{noop}`` stores the password in plain text. Use it only for local development.
 
-   For other environments, prefix the (hashed) password with its PasswordEncoder id such as ``{bcrypt}`` (it matches hashes starting with ``$2a$``, ``$2b$``, or ``$2y$``). For example, generate a bcrypt hash with Apache ``htpasswd`` and use the value after the colon: ``htpasswd -bnBC 10 "" yourpassword | tr -d ':\n'``
+   For other environments, prefix the (hashed) password with its PasswordEncoder id such as ``{bcrypt}`` (it matches hashes starting with ``$2a$``, ``$2b$``, or ``$2y$``). For example, generate a bcrypt hash with Apache ``htpasswd`` and use the value after the colon: ``htpasswd -nBC 10 "" | tr -d ':\n'`` and enter the password when prompted
 
    .. code-block:: properties
 
