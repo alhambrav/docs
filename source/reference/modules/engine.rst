@@ -2664,16 +2664,16 @@ Engine Properties-Based Authentication
 
 CrafterCMS can authenticate Engine users from a Spring Security properties file.
 
-Remember to restart CrafterCMS after you change the file. Engine reads it when the Spring context starts.
-
-For users using the CrafterCMS Enterprise Edition, to use the properties-based users config, remember to
-enable the ``crafter_engine_propertiesAuth`` profile in ``crafter-setenv.sh`` (or env variable):
+For users using the CrafterCMS Enterprise Edition, Engine authenticates users with Crafter Profile by default. To use
+``users.properties`` instead, enable the ``crafter_engine_propertiesAuth`` Spring profile in ``crafter-setenv.sh`` (or
+through the ``SPRING_PROFILES_ACTIVE`` environment variable). While this profile is active, Crafter Profile users can't
+log in to Engine.
 
 .. code-block:: bash
     :caption: `CRAFTER_HOME/bin/crafter-setenv.sh`
 
     # Uncomment to authenticate Engine users from users.properties instead of Crafter Profile
-    # export SPRING_PROFILES_ACTIVE=crafter_engine_propertiesAuth
+    export SPRING_PROFILES_ACTIVE=crafter_engine_propertiesAuth
     # For multiple active spring profiles, create comma separated list
 
 """""""""""""""""""""""""""""""""
@@ -2694,7 +2694,9 @@ Set Up Users in a Dev Environment
        admin={noop}admin,ROLE_ADMIN
        disabled-user={noop}password,disabled,ROLE_USER
 
-   Note that ``{noop}`` stores the password in plain text. Use it only for local development. For other environments, prefix the (hashed) password with its PasswordEncoder id such as ``bcrypt`` ({bcrypt} matches hashes starting with $2a$, $2b$, or $2y$)::
+   Note that ``{noop}`` stores the password in plain text. Use it only for local development.
+
+   For other environments, prefix the (hashed) password with its PasswordEncoder id such as ``{bcrypt}`` (it matches hashes starting with ``$2a$``, ``$2b$``, or ``$2y$``). For example, generate a bcrypt hash with Apache ``htpasswd`` and use the value after the colon: ``htpasswd -bnBC 10 "" yourpassword | tr -d ':\n'``
 
    .. code-block:: properties
 
@@ -3458,7 +3460,7 @@ To add a login page:
          <button type="submit">Sign in</button>
      </form>
 
-   In Community Edition, the username, password, and roles accepted by this form come from ``users.properties``. See :ref:`engine-users-properties`.
+   In Community Edition (or Enterprise Edition with the ``crafter_engine_propertiesAuth`` profile enabled), the username, password, and roles accepted by this form come from ``users.properties``. See :ref:`engine-users-properties`.
 
 ~~~~~~~~~~
 Add Logout
