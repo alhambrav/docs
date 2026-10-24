@@ -152,7 +152,8 @@ installation with no MongoDB data and no token variables generates the file inst
 
 Create that file with mode ``600``, or export the same three variables before startup. If the Profile MongoDB
 ``accesstoken`` collection is empty, provide new, non-historical IDs for all three variables; Profile seeds those IDs
-into the collection. Otherwise, use the token IDs already stored in the collection.
+into the collection. Otherwise, use the token IDs already stored in the collection. Note that administrators must create
+the path configured by ``PROFILE_ACCESS_TOKENS_FILE``.
 
 Profile does not seed these historical fixed default token IDs into an empty access-token collection. New local Authoring
 installations generate new IDs instead. Profile logs a warning at startup while any historical ID remains in MongoDB;
@@ -162,7 +163,16 @@ Note that Delivery does not generate a token file. Copy your Authoring installat
 which by default is set to ``access-tokens.env``, to each Delivery node that uses Profile, or set the same three variables.
 A Delivery node that does not use Profile needs no token configuration.
 
-See :ref:`env-var-profile-access-tokens` for the variables and the properties that use them.
+A single-site Delivery Engine uses ``PROFILE_ENGINE_ACCESS_TOKEN_ID`` through
+``crafter.profile.rest.client.accessToken.id``. ``PROFILE_ENGINE_ACCESS_TOKEN_ID`` does not configure a multi-tenant
+Delivery Engine. Each project must set ``profile.api.accessTokenId`` in ``/config/engine/site-config.xml``. When the
+project uses environment-specific Engine configuration, set it in ``/config/engine/env/{envName}/site-config.xml``.
+The multi-tenant token resolver does not fall back to ``PROFILE_ENGINE_ACCESS_TOKEN_ID`` or
+``crafter.profile.rest.client.accessToken.id``. Without ``profile.api.accessTokenId``, Profile calls from that project
+fail with a configuration error.
+
+See :ref:`env-var-profile-access-tokens` for the variables and :ref:`engine-crafter-profile-configuration` for how each
+Engine mode applies the token.
 
 |hr|
 
