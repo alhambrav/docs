@@ -150,16 +150,17 @@ installation with no MongoDB data and no token variables generates the file inst
     PROFILE_ENGINE_ACCESS_TOKEN_ID=<engine token id>
     PROFILE_SOCIAL_ACCESS_TOKEN_ID=<social token id>
 
-Create that file with mode ``600``, or export the same three variables before startup. Use the token IDs already stored
-in the Profile MongoDB ``accesstoken`` collection.
+Create that file with mode ``600``, or export the same three variables before startup. If the Profile MongoDB
+``accesstoken`` collection is empty, provide new, non-historical IDs for all three variables; Profile seeds those IDs
+into the collection. Otherwise, use the token IDs already stored in the collection.
 
 Profile does not seed these historical fixed default token IDs into an empty access-token collection. New local Authoring
 installations generate new IDs instead. Profile logs a warning at startup while any historical ID remains in MongoDB;
 create replacement tokens, update every client, restart, and then delete the historical tokens.
 
-Note that Delivery does not generate a token file. Copy your Authoring installation's ``access-tokens.env`` to each
-Delivery node that uses Profile, or set the same three variables. A Delivery node that does not use Profile needs no
-token configuration.
+Note that Delivery does not generate a token file. Copy your Authoring installation's ``PROFILE_ACCESS_TOKENS_FILE``,
+which by default is set to ``access-tokens.env``, to each Delivery node that uses Profile, or set the same three variables.
+A Delivery node that does not use Profile needs no token configuration.
 
 See :ref:`env-var-profile-access-tokens` for the variables and the properties that use them.
 
