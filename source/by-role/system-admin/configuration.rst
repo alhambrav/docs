@@ -806,7 +806,7 @@ Startup stops when Profile is deployed, ``$CRAFTER_DATA_DIR/profile/access-token
       - $CRAFTER_DATA_DIR/profile/access-tokens.env
 
 On a new local Authoring installation, CrafterCMS generates the three IDs and writes them to ``PROFILE_ACCESS_TOKENS_FILE``
-with mode ``600``. ``PROFILE_ACCESS_TOKENS_FILE`` by default is set to ``access-tokens.env``. If all three ID variables
+with mode ``600``. ``PROFILE_ACCESS_TOKENS_FILE`` by default is set to ``$CRAFTER_DATA_DIR/profile/access-tokens.env``. If all three ID variables
 are already set, those values are used and the file is not created. A value already set in the environment takes
 precedence over the same value in the file.
 

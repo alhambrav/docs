@@ -160,7 +160,7 @@ installations generate new IDs instead. Profile logs a warning at startup while 
 create replacement tokens, update every client, restart, and then delete the historical tokens.
 
 Note that Delivery does not generate a token file. Copy your Authoring installation's ``PROFILE_ACCESS_TOKENS_FILE``,
-which by default is set to ``access-tokens.env``, to each Delivery node that uses Profile, or set the same three variables.
+which by default is set to ``$CRAFTER_DATA_DIR/profile/access-tokens.env``, to each Delivery node that uses Profile, or set the same three variables.
 A Delivery node that does not use Profile needs no token configuration.
 
 A single-site Delivery Engine uses ``PROFILE_ENGINE_ACCESS_TOKEN_ID`` through
