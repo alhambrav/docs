@@ -1,5 +1,5 @@
 :is-up-to-date: True
-:last-updated: 4.6.0
+:last-updated: 4.7.0
 :orphan:
 
 .. _breaking-changes-4-x:
@@ -20,6 +20,52 @@ before upgrading. Please review the following and apply changes as required:
 - CrafterCMS has upgraded the AWS client library to version 2. |br| This may contain breaking changes that impact custom Java and
   Groovy code. See https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/migration.html for more information
   on the changes in the library that may affect your project/s.
+
+|hr|
+
+.. _breaking-changes-in-craftercms-4-7-0:
+
+------------------------------------
+Breaking Changes in CrafterCMS 4.7.0
+------------------------------------
+* Crafter Social and Crafter Profile are not included in CrafterCMS Community Edition. They remain available in CrafterCMS Enterprise.
+
+* New basic ``users.properties`` file to support Engine authentication. Define Engine users in this new file.
+  Remember that roles in the file must match the roles used by the site's security rules or ``authorizedRoles``. Users in the file are Engine users only.
+
+  Community Edition projects that used Crafter Profile for Engine authentication must migrate the required users and
+  roles to ``users.properties``.
+
+  See :ref:`engine-users-properties` for more information.
+
+* Preview tokens now use a dedicated encryption configuration and token format. Preview tokens created before 4.7.0
+  are no longer valid and must be regenerated.
+
+  Before upgrading, configure matching ``CRAFTER_PREVIEW_TOKEN_KEY`` and ``CRAFTER_PREVIEW_TOKEN_SALT`` values for
+  Studio and Engine, replacing the defaults. See :ref:`env-var-preview-token-encryption` for more information.
+
+* Deployer target management APIs no longer accept the management token in the ``token`` query parameter. Update
+  clients that create, read, deploy, duplicate, unlock, reindex, or delete targets to send the configured
+  ``deployer.main.management.authorizationToken`` value in the ``X-Crafter-Management-Token`` request header.
+  Deployer monitoring APIs continue to use the ``token`` query parameter.
+
+* Crafter Profile |enterpriseOnly| now uses configurable access tokens.
+
+  A new local Authoring installation with no MongoDB data generates ``PROFILE_ADMIN_ACCESS_TOKEN_ID``,
+  ``PROFILE_ENGINE_ACCESS_TOKEN_ID``, and ``PROFILE_SOCIAL_ACCESS_TOKEN_ID``, then stores them in
+  ``$CRAFTER_DATA_DIR/profile/access-tokens.env``. Profile, Engine, and Social read those values. All three
+  environment variables must be set or unset. A new installation that uses a remote MongoDB host does not create
+  this file and stops until the three IDs are supplied.
+
+  An upgrade with existing local MongoDB data, or an installation using a remote MongoDB host, stops during Authoring
+  startup until all three access token IDs are configured. When MongoDB already contains access tokens, the configured
+  access token IDs must match those tokens. When the access token collection is empty, Profile seeds the configured IDs
+  and rejects the former default IDs. Delivery does not generate its own token file: copy Authoring's ``access-tokens.env`` to each Delivery
+  node, or set the same three variables from the secret store used to seed Profile. Installations that do not deploy
+  Profile skip this setup.
+
+  See :ref:`env-var-profile-access-tokens` for the variables, and :ref:`upgrade-notes-for-craftercms-4.7.0` for the
+  configuration required when an existing installation still uses the 4.6.x default tokens.
 
 |hr|
 

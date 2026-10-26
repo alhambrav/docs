@@ -773,6 +773,48 @@ You must update these per installation and provide these tokens to the status mo
       - Authorization token for Social
       - defaultManagementToken
 
+.. _env-var-profile-access-tokens:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Profile Access Tokens |enterpriseOnly|
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Here are the environment variables used for configuring the Crafter Profile |enterpriseOnly| REST API access tokens used
+by Profile, Engine, and Social. When ``access-tokens.env`` does not exist, set all three, or leave all three unset.
+Startup stops when Profile is deployed, ``$CRAFTER_DATA_DIR/profile/access-tokens.env`` is missing, and either:
+
+* only some of ``PROFILE_ADMIN_ACCESS_TOKEN_ID``, ``PROFILE_ENGINE_ACCESS_TOKEN_ID``, and
+  ``PROFILE_SOCIAL_ACCESS_TOKEN_ID`` are set, or
+* none of them is set and local MongoDB data already exists, or ``MONGODB_HOST`` is not ``localhost`` or ``127.0.0.1``.
+
+.. list-table:: Profile Access Token Environment Variables
+    :header-rows: 1
+
+    * - Variable Name
+      - Description
+      - Default Value
+    * - PROFILE_ADMIN_ACCESS_TOKEN_ID
+      - Access token ID for the Profile Admin client. Profile also seeds this ID as the ``profile-admin`` token.
+      -
+    * - PROFILE_ENGINE_ACCESS_TOKEN_ID
+      - Access token ID Engine uses to call Profile. Profile also seeds this ID as the ``engine`` token.
+      -
+    * - PROFILE_SOCIAL_ACCESS_TOKEN_ID
+      - Access token ID Social uses to call Profile. Profile also seeds this ID as the ``social`` token.
+      -
+    * - PROFILE_ACCESS_TOKENS_FILE
+      - File that stores the three access token IDs
+      - $CRAFTER_DATA_DIR/profile/access-tokens.env
+
+On a new local Authoring installation, CrafterCMS generates the three IDs and writes them to ``PROFILE_ACCESS_TOKENS_FILE``
+with mode ``600``. ``PROFILE_ACCESS_TOKENS_FILE`` by default is set to ``$CRAFTER_DATA_DIR/profile/access-tokens.env``. If all three ID variables
+are already set, those values are used and the file is not created. A value already set in the environment takes
+precedence over the same value in the file.
+
+Delivery does not generate a token file. Copy Authoring's ``PROFILE_ACCESS_TOKENS_FILE`` to each Delivery node that uses
+Profile, or set the same three ID variables. An installation that does not deploy Profile skips this setup.
+
+See :ref:`upgrade-notes-for-craftercms-4.7.0` before upgrading an existing installation.
+
 .. _env-var-configuration-files-encryption:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

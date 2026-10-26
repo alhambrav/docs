@@ -3622,8 +3622,21 @@ Engine Crafter Profile Configuration |enterpriseOnly|
 .. note:: This guide includes Crafter Profile specific configuration only, for a general guide see
           :ref:`engine-project-security-guide`. Crafter Profile is an optional enterprise module.
 
-Crafter Engine needs access tokens to use Crafter Profile's API. Each project must have it's own access token. Follow the
-next steps to create one:
+Crafter Engine needs an access token to use Crafter Profile's API. The token setting depends on the Engine mode:
+
+* A single-site Engine uses ``crafter.profile.rest.client.accessToken.id``, whose default value is
+  :ref:`PROFILE_ENGINE_ACCESS_TOKEN_ID <env-var-profile-access-tokens>`.
+* A multi-tenant Delivery Engine resolves the token from the current project's ``profile.api.accessTokenId`` setting in
+  ``/config/engine/site-config.xml``. This project-level setting takes precedence over the instance-wide setting:
+  the multi-tenant token resolver does not fall back to ``PROFILE_ENGINE_ACCESS_TOKEN_ID`` when the project setting is
+  absent. A Profile API call from a project without ``profile.api.accessTokenId`` fails with a configuration error.
+
+For a Delivery node that hosts multiple projects, configure ``profile.api.accessTokenId`` separately in every project.
+Using one token per project, limited to that project's Profile tenant, is recommended. A token may be shared only if
+its Profile tenant permissions include every project that uses it; this provides broader access if the token is
+compromised. ``PROFILE_ENGINE_ACCESS_TOKEN_ID`` is a single value and does not define a project-to-token mapping.
+
+Follow the next steps to create the token, then apply it with the setting used by your Engine mode:
 
 #. Login to Crafter Profile Admin Console as a ``PROFILE_SUPERADMIN`` (by default the admin user has this role). *See* :ref:`here <crafter-profile-admin-console>` *for more information on the Crafter Profile Admin Console UI.*
 #. Click on **New Access Token** in the navigation. Enter your project's name on **Application**, leave the **Master** checkbox
@@ -3642,19 +3655,37 @@ next steps to create one:
 
    |
 
-#. Now that you have created the access token, you need to "tell" Engine to use it in your project. In Admin Console,
-    click on **List Access Tokens** in the navigation menu and copy the ID of the token you just created. Then, depending
-    on the mode Engine is running, add one of the following configurations (preview is ignored because normally
-    predefined Personas are used, so there's no need to access the Crafter Profile app).
+#. In Admin Console, click on **List Access Tokens** and copy the ID of the token you just created. Configure the
+   setting that the running Engine mode reads:
 
-    .. code-block:: xml
-      :linenos:
+   **Single-site Engine.** Set ``crafter.profile.rest.client.accessToken.id`` in the Engine server configuration. The
+   single-site resolver reads this property and does not read ``profile.api.accessTokenId`` from ``site-config.xml``.
+
+   .. code-block:: properties
+      :caption: *{CrafterCMS-install-directory}/bin/apache-tomcat/shared/classes/crafter/engine/extension/server-config.properties*
+
+      # The access token ID used by this instance of Engine to make requests to Crafter Profile.
+      crafter.profile.rest.client.accessToken.id=6604d59a-fe1b-4cb3-a76f-bdb1eb61e8c2
+
+   Restart Engine after changing the property. While the property keeps its default,
+   ``${PROFILE_ENGINE_ACCESS_TOKEN_ID:}``, Engine uses :ref:`PROFILE_ENGINE_ACCESS_TOKEN_ID <env-var-profile-access-tokens>`.
+
+   **Multi-tenant Delivery Engine.** Add the token ID to that project's Engine Project Configuration. This is the value
+   the multi-tenant resolver uses for the current project.
+
+   .. code-block:: xml
+      :caption: */config/engine/site-config.xml*
 
       <profile>
           <api>
               <accessTokenId>6604d59a-fe1b-4cb3-a76f-bdb1eb61e8c2</accessTokenId>
           </api>
       </profile>
+
+   Repeat this for every project on the Delivery node, using each project's token ID in its own ``site-config.xml``.
+   Publish the configuration changes and reload the project contexts on Delivery. If a project uses environment-specific
+   Engine configuration, set ``profile.api.accessTokenId`` in the applicable
+   ``/config/engine/env/{envName}/site-config.xml`` instead.
 
 .. TODO Discuss and see if it's safe to remove the section below
     """"""""""""""""""
@@ -3901,9 +3932,14 @@ next steps to create one:
 """""""""""""""""""""""""""""""""""""""""""""""""""
 Accessing Crafter Profile REST API |enterpriseOnly|
 """""""""""""""""""""""""""""""""""""""""""""""""""
-The following property allows you to configure the access token required to call Profile REST APIs:
+The following project property configures the access token required to call Profile REST APIs from a multi-tenant
+Engine:
 
-* ``profile.api.accessToken``: The access token to use for the Profile REST calls.
+* ``profile.api.accessTokenId``: The access token ID to use for Profile REST calls. It overrides the instance-wide
+  ``crafter.profile.rest.client.accessToken.id`` value; there is no fallback to the instance-wide value when this
+  project property is absent.
+
+See :ref:`engine-crafter-profile-configuration` for token permissions and multi-project configuration.
 
 |
 
