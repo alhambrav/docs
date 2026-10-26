@@ -1,5 +1,5 @@
 :is-up-to-date: True
-:last-updated: 4.5.0
+:last-updated: 4.7.0
 
 .. highlight:: xml
 
@@ -65,6 +65,8 @@ In this section, we will highlight some of the more commonly used properties in 
 
     * - :ref:`SMTP Configuration (Email) <studio-smtp-config>`
       - Configure the SMTP server to be used by Crafter Studio when sending emails
+    * - :ref:`Authoring URL <studio-authoring-url>`
+      - Configure the public Studio URL
     * - :ref:`CORS <studio-cors>`
       - Configure CORS
     * - :ref:`Blob Stores <blob-stores>`
@@ -175,6 +177,41 @@ This section allows the user to set up a mail client by configuring the SMTP ser
     # studio.mail.debug: false
 
 |
+
+|hr|
+
+.. _studio-authoring-url:
+
+"""""""""""""
+Authoring URL
+"""""""""""""
+.. version_tag::
+    :label: Since
+    :version: 4.7.0
+
+This section allows the user to configure the public (externally reachable) Studio base URL, including ``/studio``.
+Studio uses it to build links in generated emails, such as the password recovery email.
+
+.. important::
+    Starting with 4.7.0, password recovery links are built from ``studio.authoring.serverUrl`` instead of the
+    incoming request. If you upgrade without setting this property (or ``STUDIO_URL``) to your public Studio URL,
+    users will receive password recovery links pointing to ``http://localhost:8080/studio``.
+
+.. code-block:: yaml
+    :caption: *CRAFTER_HOME/bin/apache-tomcat/shared/classes/crafter/studio/extension/studio-config-override.yaml*
+
+    ############################################################
+    ##                    Authoring Server                    ##
+    ############################################################
+    # Public Studio base URL (including /studio) for generated links such as password recovery emails.
+    # Keep this as the externally reachable URL; do not reuse an internal service-to-service Studio URL here.
+    # If STUDIO_URL is internal-only, override this property directly with the public URL instead.
+    studio.authoring.serverUrl: https://authoring.example.com/studio
+
+The ``studio.authoring.serverUrl`` property is set to ``${env:STUDIO_URL}`` by default, which ``crafter-setenv.sh``
+sets to ``http://localhost:8080/studio`` (the same value Studio falls back to when the property is empty).
+While safe for local development, if not configured to an externally reachable URL, external users in production
+environments will receive links they can't open. Studio logs a ``WARN`` message whenever the default value is in use.
 
 |hr|
 
