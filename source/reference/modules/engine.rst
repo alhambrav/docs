@@ -4188,9 +4188,10 @@ Preview Mode
 
 In preview mode, CrafterCMS provides a security filter that can be enabled to intercept all requests and validates the following:
 
-- ``crafterPreview`` cookie exists
-- ``crafterPreview`` cookie decrypted value contains a site name and an expiration timestamp
-- Site name matches the one from ``SiteContextResolver``
+- A preview token is provided in the ``crafterPreview`` cookie or query string parameter, or the
+  ``X-Crafter-Preview`` header
+- The decrypted token contains the user, creation timestamp, permitted projects, and expiration timestamp
+- The project from ``SiteContextResolver`` is included in the token's permitted projects
 - Expiration timestamp is in the future
 
 To enable the Engine Preview Mode security filters, set ``crafter.security.preview.enabled`` to true.
@@ -4219,9 +4220,9 @@ To exclude a URL from being intercepted and validated by the security filter, ad
       /api/1/site/context/**,\
       /api/1/site/cache/**
 
-Enabling the security filter in Preview Mode requires the configuration encryption configurations (which are shared
-between Studio and Engine) and admins will need to update the default configurations for the encryption key and salt in
-:ref:`Studio <studio-cipher-configuration>` and in :ref:`Engine <engine-configuration-properties-encryption>`.
+Enabling the security filter in Preview Mode requires the dedicated preview token encryption settings shared
+by Studio and Engine. Admins must replace the default encryption key and salt and use the same key, salt,
+and prefix values for both applications. See :ref:`env-var-preview-token-encryption` for more information.
 
 .. note::
     To check if Engine is running in preview mode, use the ``modePreview`` variable available in
@@ -4244,6 +4245,32 @@ between Studio and Engine) and admins will need to update the default configurat
             // Preview-only logic
         }
 
+.. _engine-preview-token-encryption-settings:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Preview Token Encryption Settings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. version_tag::
+	:label: Since
+	:version: 4.7.0
+
+Here are the preview token encryption settings for Crafter Engine:
+
+.. code-block:: properties
+    :caption: *CRAFTER_HOME/bin/apache-tomcat/shared/classes/crafter/engine/extension/server-config.properties*
+    :emphasize-lines: 5-6
+
+    # The key used for encryption of preview tokens
+    crafter.security.preview.token.key=${CRAFTER_PREVIEW_TOKEN_KEY}
+    # The salt used for encryption of preview tokens
+    crafter.security.preview.token.salt=${CRAFTER_PREVIEW_TOKEN_SALT}
+    # Optional prefix added to preview-token ciphertext so it can be distinguished from legacy values
+    # crafter.security.preview.token.prefix=CPT-V1#
+
+The ``crafter.security.preview.token.prefix`` is optional and only needs to be added if you want to override the default
+prefix (``CPT-V1#``) added to preview-token ciphertext. Remember that if you change it, it must match the Studio
+property ``studio.security.preview.token.prefix``. See :ref:`generate-preview-token-api` for more information.
+
 .. _engine-preview-cookie:
 
 """""""""""""""
@@ -4253,8 +4280,8 @@ Preview Cookies
     :label: Since
     :version: 4.3.2
 
-When a request is sent with a ``previewToken`` query string argument (QSA), the preview Engine stores both the
-``previewToken`` and the associated ``crafterSite`` (site ID) QSA values in cookies. This allows subsequent requests
+When a request is sent with a ``crafterPreview`` query string argument (QSA), the preview Engine stores both the
+``crafterPreview`` and the associated ``crafterSite`` (site ID) QSA values in cookies. This allows subsequent requests
 to automatically reuse the token and site context without needing to resend them in the URL.
 
 To configure the behavior of the cookies, edit the following in the ``server-config.properties`` file:

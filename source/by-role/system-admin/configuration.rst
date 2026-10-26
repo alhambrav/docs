@@ -1,5 +1,5 @@
 :is-up-to-date: True
-:last-updated: 4.1.4
+:last-updated: 4.7.0
 
 .. index:: Configuration, Ports, Hostnames, Apache HTTPd, Configure Reverse Proxy
 
@@ -787,13 +787,14 @@ Here are the environment variables used to encrypt and decrypt values inside con
       - Description
       - Default Value
     * - CRAFTER_ENCRYPTION_KEY
-      - Key used for encrypting properties
+      - Key used for encrypting configuration properties
       - default_encryption_key
     * - CRAFTER_ENCRYPTION_SALT
-      - Salt used for encrypting properties
+      - Salt used for encrypting configuration properties
       - default_encryption_salt
 
 You must change the pre-configured default values for these environment variables to secure your installation.
+
 See the following for more information on using the configuration files encryption environment variables:
 
 - :ref:`change-the-defaults`
@@ -822,6 +823,42 @@ Here are the environment variables used to encrypt and decrypt values in the dat
 
 You must change the pre-configured default values for these environment variables to secure your installation.
 See :ref:`studio-cipher-configuration` for more information on using the above environment variables.
+
+.. _env-var-preview-token-encryption:
+
+~~~~~~~~~~~~~~~~~~~~~~~~
+Preview Token Encryption
+~~~~~~~~~~~~~~~~~~~~~~~~
+.. version_tag::
+    :label: Since
+    :version: 4.7.0
+
+Here are the environment variables used to encrypt and decrypt preview tokens shared by Studio and Engine:
+
+.. list-table:: Preview Token Encryption Environment Variables
+    :header-rows: 1
+
+    * - Variable Name
+      - Description
+      - Default Value
+    * - CRAFTER_PREVIEW_TOKEN_KEY
+      - Key used for encrypting preview tokens
+      - default_preview_token_key
+    * - CRAFTER_PREVIEW_TOKEN_SALT
+      - Salt used for encrypting preview tokens
+      - default_preview_token_salt
+
+You must change the pre-configured default values for these environment variables to secure your installation.
+Preview tokens are prefixed with ``CPT-V1#`` by default. If you need a different prefix, set
+``studio.security.preview.token.prefix`` in Studio and ``crafter.security.preview.token.prefix`` in Engine to the
+same value.
+
+See the following for more information on using the preview token encryption environment variables:
+
+- :ref:`change-the-defaults`
+- :ref:`preview-token`
+- :ref:`engine-security-preview-mode`
+
 
 .. _env-var-serverless-deployments:
 
