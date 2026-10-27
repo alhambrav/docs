@@ -815,7 +815,12 @@ Configuring Nodes in the Cluster
       :caption: *On the primary, with Studio stopped, archive data/db and copy it to a replica*
 
       cd $CRAFTER_HOME/data
-      tar -czvf dbData.tar.gz db/
+      rm -rf db-new
+      mkdir db-new
+      tar -xzf dbData.tar.gz -C db-new \
+        && rm -rf db \
+        && mv db-new/db db \
+        && rmdir db-new
       scp dbData.tar.gz <user>@<replica-host>:/path/to/crafter/data/
 
    ``/path/to/crafter`` is that replica's ``CRAFTER_HOME``. Repeat the ``scp`` for every replica.
