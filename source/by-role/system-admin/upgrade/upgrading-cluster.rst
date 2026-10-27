@@ -150,23 +150,26 @@ Here are the steps for adding a new node to the cluster:
 
        cd $CRAFTER_HOME/data
        tar -czf dbData.tar.gz db
-       scp dbData.tar.gz <user>@<replica-host>:/path/to/crafter/data/
+       scp dbData.tar.gz <user>@<replica-host>:/path/to/crafter/data/dbData.tar.gz.part
 
    ``/path/to/crafter`` is that replica's ``CRAFTER_HOME``.
 
    .. warning::
-       Run the following commands only on a replica. ``rm -rf db`` deletes that node's ``data/db`` directory.
+       Run the following commands only on a replica. If the archive is invalid, the existing ``data/db`` is preserved. After a successful extract, ``rm -rf db`` deletes that node's ``data/db`` directory and replaces it with ``db.staging/db``.
 
    .. code-block:: bash
        :caption: *On each replica, replace data/db with the primary copy*
 
        cd $CRAFTER_HOME/data
-       rm -rf db-new
-       mkdir db-new
-       tar -xzf dbData.tar.gz -C db-new \
-         && rm -rf db \
-         && mv db-new/db db \
-         && rmdir db-new
+       rm -rf db.staging
+       mkdir db.staging
+       tar -xzvf dbData.tar.gz.part -C db.staging || {
+           rm -rf db.staging
+           echo "The database archive is invalid; existing db was preserved."
+           exit 1
+       }
+       rm -rf db
+       mv db.staging/db db
 
 #. In the Replica server, review the following configuration files to start Studio in cluster mode as described
    :ref:`here <setup-a-two-node-cluster-with-studio>`:
