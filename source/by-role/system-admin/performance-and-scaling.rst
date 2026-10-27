@@ -827,8 +827,12 @@ Configuring Nodes in the Cluster
       :caption: *On each replica, with Studio stopped, replace data/db*
 
       cd $CRAFTER_HOME/data
-      rm -rf db
-      tar -xzvf dbData.tar.gz
+      rm -rf db-new
+      mkdir db-new
+      tar -xzf dbData.tar.gz -C db-new \
+        && rm -rf db \
+        && mv db-new/db db \
+        && rmdir db-new
 
    The same copy is required when moving an existing non-clustered Studio into the :ref:`Kubernetes cluster example <setup-studio-clustering-with-kubernetes-deployment>`. Place the primary ``data/db`` on each replica volume before those pods start.
 

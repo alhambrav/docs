@@ -161,8 +161,12 @@ Here are the steps for adding a new node to the cluster:
        :caption: *On each replica, replace data/db with the primary copy*
 
        cd $CRAFTER_HOME/data
-       rm -rf db
-       tar -xzvf dbData.tar.gz
+       rm -rf db-new
+       mkdir db-new
+       tar -xzf dbData.tar.gz -C db-new \
+         && rm -rf db \
+         && mv db-new/db db \
+         && rmdir db-new
 
 #. In the Replica server, review the following configuration files to start Studio in cluster mode as described
    :ref:`here <setup-a-two-node-cluster-with-studio>`:
