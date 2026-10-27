@@ -149,12 +149,7 @@ Here are the steps for adding a new node to the cluster:
        :caption: *On the primary, archive data/db and copy it to a replica*
 
        cd $CRAFTER_HOME/data
-       rm -rf db-new
-       mkdir db-new
-       tar -xzf dbData.tar.gz -C db-new \
-         && rm -rf db \
-         && mv db-new/db db \
-         && rmdir db-new
+       tar -czf dbData.tar.gz db
        scp dbData.tar.gz <user>@<replica-host>:/path/to/crafter/data/
 
    ``/path/to/crafter`` is that replica's ``CRAFTER_HOME``.
