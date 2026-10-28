@@ -146,59 +146,16 @@ Here are the steps for adding a new node to the cluster:
    On the replica, extract the new bundle, then replace its ``data/db`` with the primary copy. The primary is already stopped. Leave each replica stopped until the start step below. Repeat for every replica node.
 
    .. code-block:: bash
-       :caption: *On the primary, archive data/db and copy it to a replica*
+       :caption: *Make a copy of the data/db folder in Primary server*
 
-       cd $CRAFTER_HOME/data
-       tar -czf dbData.tar.gz db
-       scp dbData.tar.gz <user>@<replica-host>:/path/to/crafter/data/dbData.tar.gz.part
-
-   ``/path/to/crafter`` is that replica's ``CRAFTER_HOME``.
-
-   .. warning::
-       Run the following commands only on a replica. If the archive is invalid, the existing ``data/db`` is preserved. After a successful extract, ``rm -rf db`` deletes that node's ``data/db`` directory and replaces it with ``db.staging/db``.
-
-   .. raw:: html
-
-       <details>
-       <summary><a>Sample script for replacing data/db in the replica with the primary copy</a></summary>
+       cd CRAFTER_HOME/data
+       tar -czvf dbData.tar.gz db/
 
    .. code-block:: bash
-      :caption: *On each replica, with Studio stopped, replace data/db with the primary copy*
+      :caption: *In the Replica server, paste the data/db folder copied from the Primary server*
 
-      cd $CRAFTER_HOME/data
-      rm -rf db.staging
-      mkdir db.staging
-      tar -xzvf dbData.tar.gz.part -C db.staging || {
-          rm -rf db.staging
-          echo "The database archive is invalid; existing db was preserved."
-          exit 1
-      }
-      if [ ! -d db.staging/db ]; then
-          rm -rf db.staging
-          echo "The archive does not contain data/db; existing db was preserved."
-          exit 1
-      fi
-
-      backup="db.backup.$$"
-      if ! mv db "$backup"; then
-          rm -rf db.staging
-          echo "The existing database could not be backed up."
-          exit 1
-      fi
-
-      if ! mv db.staging/db db; then
-          rm -rf db
-          mv "$backup" db
-          rm -rf db.staging
-          echo "The database replacement failed; existing db was restored."
-          exit 1
-      fi
-
-      rm -rf "$backup" db.staging
-
-   .. raw:: html
-
-       </details>
+      cd CRAFTER_HOME/data
+      tar -xvf dbData.tar.gz
 
 #. In the Replica server, review the following configuration files to start Studio in cluster mode as described
    :ref:`here <setup-a-two-node-cluster-with-studio>`:
