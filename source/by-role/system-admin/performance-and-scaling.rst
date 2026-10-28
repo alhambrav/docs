@@ -807,6 +807,8 @@ Configuring Nodes in the Cluster
        `Kubernetes Hazelcast Plugin  <https://github.com/hazelcast/hazelcast-kubernetes>`_ documentation
        in your Kubernetes cluster, before even starting any Studio pods.
 
+.. _replace-existing-data-db-in-replica:
+
 #. If the primary database was created while Studio was a single non-clustered instance, copy its ``data/db`` folder to every replica before the first clustered start. Skip this step for a new cluster where no node already has a Studio database.
 
    Stop the original Studio, and leave every replica stopped. A new install from step 1 includes its own ``data/db``. On each replica, remove that folder and replace it with the primary copy. Without this copy, the replica fails to start with a database sync error. See :ref:`authoring-cluster-troubleshooting`.
