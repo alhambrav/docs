@@ -823,8 +823,14 @@ Configuring Nodes in the Cluster
    .. warning::
        Run the following commands only on a replica. If the archive is invalid, the existing ``data/db`` is preserved. After a successful extract, ``rm -rf db`` deletes that node's ``data/db`` directory and replaces it with ``db.staging/db``.
 
+
+   .. raw:: html
+
+       <details>
+       <summary><a>Sample script for replacing data/db in the replica with the primary copy</a></summary>
+
    .. code-block:: bash
-      :caption: *On each replica, with Studio stopped, replace data/db*
+      :caption: *On each replica, with Studio stopped, replace data/db with the primary copy*
 
       cd $CRAFTER_HOME/data
       rm -rf db.staging
@@ -834,8 +840,32 @@ Configuring Nodes in the Cluster
           echo "The database archive is invalid; existing db was preserved."
           exit 1
       }
-      rm -rf db
-      mv db.staging/db db
+      if [ ! -d db.staging/db ]; then
+          rm -rf db.staging
+          echo "The archive does not contain data/db; existing db was preserved."
+          exit 1
+      fi
+
+      backup="db.backup.$$"
+      if ! mv db "$backup"; then
+          rm -rf db.staging
+          echo "The existing database could not be backed up."
+          exit 1
+      fi
+
+      if ! mv db.staging/db db; then
+          rm -rf db
+          mv "$backup" db
+          rm -rf db.staging
+          echo "The database replacement failed; existing db was restored."
+          exit 1
+      fi
+
+      rm -rf "$backup" db.staging
+
+   .. raw:: html
+
+       </details>
 
    The same copy is required when moving an existing non-clustered Studio into the :ref:`Kubernetes cluster example <setup-studio-clustering-with-kubernetes-deployment>`. Place the primary ``data/db`` on each replica volume before those pods start.
 

@@ -157,19 +157,48 @@ Here are the steps for adding a new node to the cluster:
    .. warning::
        Run the following commands only on a replica. If the archive is invalid, the existing ``data/db`` is preserved. After a successful extract, ``rm -rf db`` deletes that node's ``data/db`` directory and replaces it with ``db.staging/db``.
 
-   .. code-block:: bash
-       :caption: *On each replica, replace data/db with the primary copy*
+   .. raw:: html
 
-       cd $CRAFTER_HOME/data
-       rm -rf db.staging
-       mkdir db.staging
-       tar -xzvf dbData.tar.gz.part -C db.staging || {
-           rm -rf db.staging
-           echo "The database archive is invalid; existing db was preserved."
-           exit 1
-       }
-       rm -rf db
-       mv db.staging/db db
+       <details>
+       <summary><a>Sample script for replacing data/db in the replica with the primary copy</a></summary>
+
+   .. code-block:: bash
+      :caption: *On each replica, with Studio stopped, replace data/db with the primary copy*
+
+      cd $CRAFTER_HOME/data
+      rm -rf db.staging
+      mkdir db.staging
+      tar -xzvf dbData.tar.gz.part -C db.staging || {
+          rm -rf db.staging
+          echo "The database archive is invalid; existing db was preserved."
+          exit 1
+      }
+      if [ ! -d db.staging/db ]; then
+          rm -rf db.staging
+          echo "The archive does not contain data/db; existing db was preserved."
+          exit 1
+      fi
+
+      backup="db.backup.$$"
+      if ! mv db "$backup"; then
+          rm -rf db.staging
+          echo "The existing database could not be backed up."
+          exit 1
+      fi
+
+      if ! mv db.staging/db db; then
+          rm -rf db
+          mv "$backup" db
+          rm -rf db.staging
+          echo "The database replacement failed; existing db was restored."
+          exit 1
+      fi
+
+      rm -rf "$backup" db.staging
+
+   .. raw:: html
+
+       </details>
 
 #. In the Replica server, review the following configuration files to start Studio in cluster mode as described
    :ref:`here <setup-a-two-node-cluster-with-studio>`:
