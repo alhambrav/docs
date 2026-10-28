@@ -814,13 +814,13 @@ Configuring Nodes in the Cluster
    .. code-block:: bash
        :caption: *Make a copy of the data/db folder in Primary server*
 
-       cd $CRAFTER_HOME/data
+       cd "$CRAFTER_HOME/data"
        tar -czvf dbData.tar.gz db/
 
    .. code-block:: bash
       :caption: *In the Replica server, paste the data/db folder copied from the Primary server*
 
-      cd $CRAFTER_HOME/data
+      cd "$CRAFTER_HOME/data"
       tar -xvf dbData.tar.gz
 
    The same copy is required when moving an existing non-clustered Studio into the :ref:`Kubernetes cluster example <setup-studio-clustering-with-kubernetes-deployment>`. Place the primary ``data/db`` on each replica volume before those pods start.
